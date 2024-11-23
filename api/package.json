@@ -1,0 +1,19 @@
+{
+  "name": "api-pay-me",
+  "version": "1.0.0",
+  "description": "A web application API enabling user registration, login, transaction viewing, transfers, card management, and payment processing. Perfect for seamless payment operations.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --env-file=.env index.js"
+  },
+  "author": "Priscila Verónica Meza Lobato, Michelle Martinez Nuñez, Laura Edith Osorio Maldonado",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "mysql2": "^3.11.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
