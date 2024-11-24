@@ -21,7 +21,9 @@ document.getElementById('register').addEventListener('click', async (event) => {
         if(document.getElementById("password").value.lenght < 8)
             throw new Error('Error: La contraseña debe tener al menos 8 caracteres')
         
-        const response = await fetch('http://localhost:3000/users', {
+        let apiURL = 'http://' + window.location.hostname + ':3000/users'
+
+        let response = await fetch(apiURL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -34,12 +36,16 @@ document.getElementById('register').addEventListener('click', async (event) => {
             })
         });
         if (!response.ok) {
-            const { message } = await response.json()
+            let { message } = await response.json()
             throw new Error(message);
         }
-        const data = await response.json();
+        let data = await response.json();
         window.location.href = '../login/login.html';
     } catch (error) {
         document.getElementById("error").innerHTML = error.message
     }
+});
+
+document.getElementById('cancel').addEventListener('click', async (event) => {
+    window.location.href = '../index.html';
 });

@@ -9,8 +9,7 @@
     </head>
     
 <body>
-
-    <div class="conteiner">
+    <div class="container">
 
         <div>
             <h1 class="log">Log in</h1>
@@ -19,19 +18,20 @@
         <div class="inputs"> 
             <input type="text" id="email" placeholder="Correo electrónico  " class="borde">
             <input type="password" id="password" placeholder="Contraseña" class="borde">
-            
             <div class="checkbox">
-            <input type="checkbox" id="remember" class="cbox"> 
-            <label class="label_box"  for="remember">Recordar contraseña</label>
-        </div>
-
+                <input type="checkbox" id="remember" class="cbox"> 
+                <label class="label_box"  for="remember">Recordar contraseña</label>
+            </div>
         </div> 
 
- 
         <div class="buttons"> 
             <button class="cancel" id="cancel" >Cancelar</button>
             <button class="login" id="login">Registrar</button>
         </div> 
+        <div>
+            <p class="error" id="error"></p>
+        </div>
     </div> 
+    <script src="login.js"></script> 
 </body>
 </html>

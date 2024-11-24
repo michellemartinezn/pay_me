@@ -50,17 +50,24 @@ app.get('/login/:email&:pass', async (req, res) => {
     try{
         const { email, pass } = req.params
         db = await connect();
-        const query = `CALL SP_LOGIN_USER('${email}', '${pass}')`;
+        const query = `SELECT id, pass, SHA1('${pass}') AS reqpass FROM users WHERE email ='${email}'`;
+        
         const [rows] = await db.execute(query);
         let idUser = 0;
-        if(rows[0].length > 0)
-            idUser=rows[0][0].id
+        if(rows.length > 0){
+            if(rows[0].pass.localeCompare(rows[0].reqpass) == 0)
+                idUser=rows[0].id
+            else
+                throw new Error('Contraseña incorrecta');
+        }
+        else
+            throw new Error('El usuario no existe');
         res.json({
             data: idUser,
             status: 200
         })
     } catch(err) {
-        return res.status(500).json({message: db ? err.sqlMessage : "db connection problem"}) 
+        return res.status(500).json({message: err.message}) 
     } finally {
         if(db)
             db.end();
