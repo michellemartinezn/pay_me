@@ -1,0 +1,153 @@
+body{
+    display: grid;
+    grid-template-rows: repeat(12,1fr);
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.menu{
+    display: grid;
+    grid-row-start: 1;
+    grid-column: 2/8;
+    margin-top: 2.5%;
+    gap: 10px;
+    align-content: start;
+
+}
+
+h2{
+    font-family: "Josefin Sans";
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: center;
+
+}
+
+h2:nth-child(1) {
+    grid-column: 3 / 4;
+}
+
+h2:nth-child(2) {
+    grid-column: 4 / 5; 
+}
+
+h2:nth-child(3) {
+    color: #00085A;
+    font-weight: 700;
+    grid-column: 5 / 6; 
+}
+
+h2:nth-child(4) {
+    grid-column: 6 / 7; 
+}
+
+h2:nth-child(5) {
+    grid-column: 7 / 8; 
+}
+
+.blue_line{
+    width: 100px;
+    height: 8px;
+    flex-shrink: 0;
+    border-radius: 40px;
+    background: #00085A;
+    grid-column: 5/6;
+    grid-row: 2;
+    justify-self: center;
+    margin-top: -20px;
+}
+
+h2 a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.container{
+    grid-column: 2/8;
+    grid-row: 2/12;
+    margin-top: -20px;
+}
+
+.title{
+    grid-row: 1;
+    color: #000;
+    font-family: Poppins;
+    font-size: 55px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;  
+}
+
+.inputs{
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    justify-content: left;
+    text-align: left;
+    margin-top: -20px;
+
+}
+
+.inputs input{
+    border-radius: 30px;
+    border: 1px solid #7A7485;
+    display: block; 
+    margin: 10px 0;
+    padding: 10px;
+    width: 80%;
+    height: 25px;
+}
+
+.inputs h2{
+    color: #7A7485;
+    font-family: "Josefin Sans";
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+}
+
+.my-card{
+    grid-column: 1;
+}
+
+.receiver-email{
+    grid-column: 1;
+}
+
+.receiver-card{
+    grid-column: 1;
+}
+
+.amount{
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.concept{
+    grid-column: 2;
+    grid-row: 2;
+}
+
+
+.accept-button{
+    grid-column: 2/8;
+    grid-row: 6;
+    margin-top: 67px;
+    background-color: #00085A;
+    color: white;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    
+    height: 50px; 
+    width: 40%;
+    justify-self:center;
+    align-self: center;
+
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}

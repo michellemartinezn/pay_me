@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Transferir</title>
+        <link rel="stylesheet" href="payments.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+
+    </head>
+    
+<body>
+
+    <div class="menu">
+        <h2>Inicio</h2>
+        <h2><a href="../movements/movements.html">Movimientos</a></h2>
+        <h2><a href="../transfer/transfer.html">Transferencias</a></h2>
+        <h2><a href="../cards/cards.html">Tarjetas</a></h2>
+        <h2><a href="../payments/payments.html">Realizar pagos</a></h2>
+        <div class="blue_line"></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">Realizar pagos</h1>
+        <div class="inputs">
+            <div class="method">
+                <h2>Método de pago</h2>
+                <input type="text" id="method" placeholder="Tarjetas disponibles" class="borde">
+            </div>
+
+            <div class="service">
+                <h2>Servicio</h2>
+                <input type="expiration-date" id="text" placeholder="" class="borde">
+            </div>
+
+            <div class="amount">
+                <h2>Monto</h2>
+                <input type="text" id="amount" placeholder="$" class="borde">
+            </div>
+            <button class="accept-button">Pagar</button>
+        </div>
+
+    </div>
+    
+
+
+    <script src="movements.js"></script>
+</body>
+</html>

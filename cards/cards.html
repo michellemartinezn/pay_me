@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Transferir</title>
+        <link rel="stylesheet" href="cards.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+
+    </head>
+    
+<body>
+
+    <div class="menu">
+        <h2>Inicio</h2>
+        <h2><a href="../movements/movements.html">Movimientos</a></h2>
+        <h2><a href="../transfer/transfer.html">Transferencias</a></h2>
+        <h2><a href="../cards/cards.html">Tarjetas</a></h2>
+        <h2><a href="../payments/payments.html">Realizar pagos</a></h2>
+        <div class="blue_line"></div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">Agregar tarjeta</h1>
+        <div class="inputs">
+            <div class="card">
+                <h2>Numero de tarjeta</h2>
+                <input type="text" id="card" placeholder="0000 0000 0000 0000" class="borde">
+            </div>
+
+            <div class="expiration-date">
+                <h2>Fecha de vencimiento</h2>
+                <input type="expiration-date" id="text" placeholder="mm/aa" class="borde">
+            </div>
+
+            <div class="cvv">
+                <h2>CVV</h2>
+                <input type="text" id="cvv" placeholder="" class="borde">
+            </div>
+            <div class="balance">
+                <h2>Saldo</h2>
+                <input type="text" id="balance" placeholder="$" class="borde">
+            </div>
+            <button class="accept-button">Agregar</button>
+        </div>
+
+    </div>
+    
+
+
+    <script src="movements.js"></script>
+</body>
+</html>
