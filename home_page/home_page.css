@@ -1,0 +1,222 @@
+body {
+    background-color: #00085A;
+    height: 100vh; 
+    margin: 0; 
+    display: flex; 
+    justify-content: flex-end; 
+
+}
+
+.conteiner {
+    width: 80%; 
+    height: 100%;
+    background-color: white; 
+    display: flex; 
+    
+    flex-direction: column;
+    
+}
+
+
+
+
+.signup{
+    /* padding: 10px 20px; */
+    background-color: #00085A;
+    color: white;
+    border-radius: 30px;
+    border: none;
+ 
+    
+     height: 45px;   /*alto  */
+
+    width: 130px;
+
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.buttons{
+     /*background-color: rgb(227, 174, 174);/*l */
+   
+
+    width: 310px;
+    height: 45px;
+     
+    padding: 0px;
+
+    margin-top: 30px;
+   
+    margin-left: 70%; 
+    
+    display: flex;
+    justify-content: space-between;
+   
+
+}
+
+
+.login{
+    text-decoration: underline; 
+    background-color: #ffffff;
+    color: #00085A;
+    border-radius: 30px;
+    
+    border: 3px solid #ffffff;
+
+    
+     height: 45px;   /*alto  */
+
+    width: 130px;
+
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+
+}
+
+.conteiner-text{
+
+    /* background-color: aqua; */
+
+    height: 380px;   
+     width: 800px;
+
+
+
+     margin-top: 100px;
+   
+     margin-left: 30%;
+
+}
+
+
+.text{
+
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 80px;
+    text-align: right;
+}
+
+.cursiva-bold {
+    
+    font-weight: 850;   
+    font-family: 'Inter', sans-serif; 
+    color: #00085A;
+}
+
+
+
+
+
+/* 
+
+.img-pm{
+    width:15%; 
+    height:28%;
+   
+    
+    
+} */
+
+
+
+
+
+
+
+
+
+
+/* Ajustes para pantallas medianas BIEN*/
+ /* @media (max-width: 1024px) {
+    .conteiner {
+        width: 80%;
+    }
+    .inputs {
+        width: 60%;
+        height: 260px;
+    }
+    .buttons {
+        width: 60%;
+        height: 40px;
+    }
+    .login, .cancel {
+        width: 120px;
+        font-size: 18px;
+    }
+
+
+ } */
+
+
+
+
+
+
+
+
+
+
+
+
+/* medidas pequeñas */
+ 
+/* 
+@media (max-width: 768px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch; 
+        
+    }
+
+    
+    
+    
+    .conteiner {
+        width: 100%;
+        height: 80%; 
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 0px;
+
+        
+    }
+
+    .inputs {
+        width: 70%;   
+        height: 50%;
+           margin-top: -20px; 
+        
+    }
+
+    .borde {
+        width: 95%;
+        margin: 10px 0;
+        height: 15px;
+    }
+
+    .buttons {
+        width: 50%;
+        
+        
+        gap: 10px;
+        margin-top: 20px;
+        
+
+    }
+  
+
+    .login, .cancel {
+        width: 100%;
+        height: 40px;
+        font-size: 16px;
+    }
+}
+ 
