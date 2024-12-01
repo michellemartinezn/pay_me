@@ -1,4 +1,4 @@
-DROP DATABASE payMe;
+DROP DATABASE payMeDB;
 CREATE DATABASE payMeDB;
 USE payMeDB;
 
@@ -7,12 +7,12 @@ CREATE TABLE users(
     first_name VARCHAR(40) NOT NULL,
     last_name VARCHAR(40) NOT NULL,
 	email VARCHAR(60) NOT NULL UNIQUE,
-    pass VARCHAR(100) NOT NULL
+    pass VARCHAR(255) NOT NULL
 )ENGINE=INNODB;
 
 CREATE TABLE cardTypes(
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    description_type VARCHAR(15)
+	id TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    description_type VARCHAR(30)
 )ENGINE=INNODB;
 
 CREATE TABLE cards(
@@ -46,13 +46,9 @@ CREATE TABLE transactions(
 		REFERENCES users(id)
 )ENGINE=INNODB;
 
-CREATE VIEW v_user_cards AS 
-SELECT users.id, CONCAT(users.first_name, ' ', users.last_name) AS full_name, users.email, cards.card_number, cardtypes.description_type, DATE_FORMAT(cards.expiration_date, "%m/%y") AS expiration_date, cards.CVV 
-FROM users JOIN cards ON users.id = cards.user_id JOIN cardtypes ON cards.card_type = cardtypes.id;
-
 DROP PROCEDURE IF EXISTS SP_CREATE_USER;
 DELIMITER //
-CREATE PROCEDURE SP_CREATE_USER(IN _first_name VARCHAR(40), IN _last_name VARCHAR(40), IN _email VARCHAR(60), IN _pass VARCHAR(20))
+CREATE PROCEDURE SP_CREATE_USER(IN _first_name VARCHAR(40), IN _last_name VARCHAR(40), IN _email VARCHAR(60), IN _pass VARCHAR(255))
 BEGIN 
 	IF _email NOT REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' THEN
 		SIGNAL SQLSTATE '45000'
@@ -62,17 +58,13 @@ BEGIN
 		SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error: First name and last name are required';
 	END IF;
-    IF LENGTH(_pass) < 8 THEN
-		SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error: The password must be at least 8 characters long';
-	END IF;
     
     IF EXISTS(SELECT 1 FROM users WHERE email = _email) THEN
 		SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error: Ese correo ya ha sido registrado';
 	END IF;
     
-    INSERT INTO users(first_name, last_name, email, pass) VALUES (_first_name, _last_name, _email, SHA1(_pass));
+    INSERT INTO users(first_name, last_name, email, pass) VALUES (_first_name, _last_name, _email, _pass);
 END//
 DELIMITER ;
 
@@ -121,9 +113,9 @@ BEGIN
 END//
 DELIMITER ;
 
-INSERT INTO cardTypes (description_type) VALUES ('Tarjeta de crédito'), ('Tarjeta de débito');
-INSERT INTO transactionTypes (description_type) VALUES ('Transferencia'), ('Pago');
+CREATE VIEW v_user_cards AS 
+SELECT users.id, CONCAT(users.first_name, ' ', users.last_name) AS full_name, users.email, cards.card_number, cardtypes.description_type, DATE_FORMAT(cards.expiration_date, "%m/%y") AS expiration_date, cards.CVV 
+FROM users JOIN cards ON users.id = cards.user_id JOIN cardtypes ON cards.card_type = cardtypes.id;
 
+INSERT INTO cardTypes (description_type) VALUES ('Credit card'), ('Debit card');
 SELECT * FROM cardTypes;
-
-SELECT * FROM users;
