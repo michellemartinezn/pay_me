@@ -51,8 +51,8 @@ app.post('/login', async (req, res) => {
         }, process.env.SECRET)
         console.log(token);
         res.json({
-        data: token,
-        status: 200
+            data: token,
+            status: 200
         })
     } catch(err) {
         return res.status(500).json({message: err.message}) 
@@ -102,12 +102,14 @@ app.post('/users', async (req, res) => {
     }
 });
 
-app.post('/cards', async (req, res) => { 
+app.post('/cards', checkToken, async (req, res) => { 
     let db;
     try{
-        const { user_id, card_number, card_type, expiration_date, CVV, balance } = req.body
+        const { card_number, card_type, expiration_date, CVV, balance } = req.body
+        let dateExpiration = "20"
+        dateExpiration = dateExpiration.concat(expiration_date.substring(3), expiration_date.substring(0,2), "01")
         db = await connect();
-        const query = `CALL SP_NEW_CARD(${user_id}, '${card_number}', ${card_type}, '${expiration_date}', '${CVV}')`;
+        const query = `CALL SP_NEW_CARD(${req.idUser}, '${card_number}', ${card_type}, '${dateExpiration}', '${CVV}', ${balance})`;
         const [rows] = await db.execute(query);
         res.json({
             data: rows,

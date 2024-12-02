@@ -7,7 +7,7 @@ CREATE TABLE users(
     first_name VARCHAR(40) NOT NULL,
     last_name VARCHAR(40) NOT NULL,
 	email VARCHAR(60) NOT NULL UNIQUE,
-    pass VARCHAR(255) NOT NULL
+    pass VARCHAR(100) NOT NULL
 )ENGINE=INNODB;
 
 CREATE TABLE cardTypes(
@@ -16,7 +16,7 @@ CREATE TABLE cardTypes(
 )ENGINE=INNODB;
 
 CREATE TABLE cards(
-	id INT NOT NULL PRIMARY KEY,
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
 	card_number CHAR(16) NOT NULL,
     card_type TINYINT NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE transactions(
 
 DROP PROCEDURE IF EXISTS SP_CREATE_USER;
 DELIMITER //
-CREATE PROCEDURE SP_CREATE_USER(IN _first_name VARCHAR(40), IN _last_name VARCHAR(40), IN _email VARCHAR(60), IN _pass VARCHAR(255))
+CREATE PROCEDURE SP_CREATE_USER(IN _first_name VARCHAR(40), IN _last_name VARCHAR(40), IN _email VARCHAR(60), IN _pass VARCHAR(20))
 BEGIN 
 	IF _email NOT REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' THEN
 		SIGNAL SQLSTATE '45000'
@@ -58,13 +58,17 @@ BEGIN
 		SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error: First name and last name are required';
 	END IF;
+    IF LENGTH(_pass) < 8 THEN
+		SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error: The password must be at least 8 characters long';
+	END IF;
     
     IF EXISTS(SELECT 1 FROM users WHERE email = _email) THEN
 		SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error: Ese correo ya ha sido registrado';
 	END IF;
     
-    INSERT INTO users(first_name, last_name, email, pass) VALUES (_first_name, _last_name, _email, _pass);
+    INSERT INTO users(first_name, last_name, email, pass) VALUES (_first_name, _last_name, _email, SHA1(_pass));
 END//
 DELIMITER ;
 
@@ -87,7 +91,7 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS SP_NEW_CARD;
 DELIMITER //
-CREATE PROCEDURE SP_NEW_CARD(IN _user_id INT, _card_number CHAR(16), _card_type TINYINT, _expiration_date DATE, _CVV SMALLINT)
+CREATE PROCEDURE SP_NEW_CARD(IN _user_id INT, _card_number CHAR(16), _card_type TINYINT, _expiration_date DATE, _CVV SMALLINT, _balance DECIMAL(12,2))
 BEGIN
 	IF _CVV < 1 OR _CVV > 999 THEN
 		SIGNAL SQLSTATE '45000'
@@ -105,7 +109,7 @@ BEGIN
     END IF;
     
 	IF EXISTS(SELECT 1 FROM cardTypes WHERE id = _card_type) THEN
-		INSERT INTO cards(user_id, card_number, card_type, expiration_date, CVV) VALUES (_user_id, _card_number, _card_type, _expiration_date, _CVV); 
+		INSERT INTO cards(user_id, card_number, card_type, expiration_date, CVV, balance) VALUES (_user_id, _card_number, _card_type, _expiration_date, _CVV, _balance); 
 	ELSE
 		SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error: Card type doesn´t exist';

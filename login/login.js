@@ -30,7 +30,7 @@ document.getElementById('login').addEventListener('click', async (event) => {
         if (!token.data)
             throw new Error("Credenciales incorrectas");
         sessionStorage.setItem('token', token.data)
-        window.location.href = '../home/home.html';
+        window.location.href = '../cards/cards.html';
     } catch (error) {
         document.getElementById("error").innerHTML = error.message
     }
