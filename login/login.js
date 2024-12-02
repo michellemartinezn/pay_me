@@ -11,17 +11,26 @@ document.getElementById('login').addEventListener('click', async (event) => {
         if(document.getElementById('password').value == "") 
             throw new Error('Error: Se requiere una contraseña')
 
-        let apiURL = 'http://' + window.location.hostname + ':3000/login/' + document.getElementById('email').value + '&' + document.getElementById('password').value 
-        let response = await fetch(apiURL);
+        let apiURL = 'http://' + window.location.hostname + ':3000/login';  
+        let response = await fetch(apiURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: document.getElementById('email').value,
+                pass: document.getElementById('password').value
+            })
+        });
         if (!response.ok) {
             let { message } = await response.json()
             throw new Error(message);
         }
-        let idUser = await response.json();
-        if (idUser.data === 0)
+        let token = await response.json();
+        if (!token.data)
             throw new Error("Credenciales incorrectas");
-        sessionStorage.setItem('IdUser', idUser.data)
-        window.location.href = '../home/home.html';
+        sessionStorage.setItem('token', token.data)
+        window.location.href = '../cards/cards.html';
     } catch (error) {
         document.getElementById("error").innerHTML = error.message
     }
