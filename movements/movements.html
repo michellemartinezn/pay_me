@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Movimientos</title>
+        <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="movements.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,16 +27,33 @@
     <div class="filter-rectangle">
         <div class="filter">
             <div class="date">
-                <h2>Fecha</h2>
-                <div class="arrow-down"></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Fecha
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Mes</a></li>
+                      <li><a class="dropdown-item" href="#">Año</a></li>
+                    </ul>
+                  </div>
             </div>
 
             <div class="type">
-                <h2>Tipo</h2>
-                <div class="arrow-down"></div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Tipo
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Transferencia</a></li>
+                      <li><a class="dropdown-item" href="#">Pago</a></li>
+                    </ul>
+                  </div>
             </div>
 
-            <button>Filtrar</button>
+            <div class="filter-button">
+                <button>Filtrar</button>
+            </div>
+
         </div>
 
     </div>
