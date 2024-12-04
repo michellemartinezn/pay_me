@@ -14,7 +14,8 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
 
         let apiURL = 'http://' + window.location.hostname + ':3000/cards'
         const token = sessionStorage.getItem('token');
-        console.log(token);
+        let prueba =  document.getElementById('balance').value.replace("$", "").replace(/,/g, "");
+        console.log(prueba);
     
         let response = await fetch(apiURL, {
             method: 'POST',
@@ -43,7 +44,6 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
 
 async function get_card_type(){
     let apiURL = 'http://' + window.location.hostname + ':3000/cardTypes';
-    console.log(apiURL);
     let response = await fetch(apiURL);
     if (!response.ok) {
         const { message } = await response.json();
@@ -52,7 +52,7 @@ async function get_card_type(){
     let Cards = await response.json();
     let options = '';
     Cards.data.forEach(element => {
-        options = options + '<Option value="' + element.id + '">' + element.description_type + '</option>';
+        options = options + `<Option value="${element.id}">${element.description_type}</option>`;
     });
     document.getElementById('card_type').innerHTML = options;
 }

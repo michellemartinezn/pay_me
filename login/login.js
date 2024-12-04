@@ -37,5 +37,5 @@ document.getElementById('login').addEventListener('click', async (event) => {
 });
 
 document.getElementById('cancel').addEventListener('click', async (event) => {
-    window.location.href = '../index.html';
+    window.location.href = '../home_page/home_page.html';
 });
