@@ -57,7 +57,6 @@ CREATE VIEW v_user_cards AS
 SELECT users.id AS user_id, CONCAT(users.first_name, ' ', users.last_name) AS full_name, users.email, cards.card_number, cardtypes.description_type, DATE_FORMAT(cards.expiration_date, "%m/%y") AS expiration_date, cards.CVV, cards.id AS card_id 
 FROM users JOIN cards ON users.id = cards.user_id JOIN cardtypes ON cards.card_type = cardtypes.id;
 
-DROP VIEW v_movements;
 CREATE VIEW v_movements AS
 SELECT cards.user_id, transactiontypes.description_type, date_format(transactions.transaction_date, '%d-%m-%Y') AS transaction_date, transactions.amount, services.service_description
 FROM transactions INNER JOIN cards ON transactions.source_card = cards.id INNER JOIN transactiontypes ON transactions.transaction_type = transactiontypes.id INNER JOIN services ON transactions.recipient_id = services.id
