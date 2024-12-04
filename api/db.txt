@@ -30,25 +30,46 @@ CREATE TABLE cards(
 )ENGINE=INNODB;
 
 CREATE TABLE transactionTypes(
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     description_type VARCHAR(15)
+)ENGINE=INNODB;
+
+CREATE TABLE services(
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    service_description VARCHAR(100)
 )ENGINE=INNODB;
 
 CREATE TABLE transactions(
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	user_id INT NOT NULL,
-    recipient CHAR(16) NOT NULL,
+	source_card INT NOT NULL,
+    recipient_id INT NOT NULL,
 	transaction_date DATE NOT NULL,
     amount DECIMAL(12,2) NOT NULL,
     transaction_type TINYINT NOT NULL,
-    concept VARCHAR(50),
-	CONSTRAINT FK_USER_TRANSACTION FOREIGN KEY(user_id) 
-		REFERENCES users(id)
+    concept VARCHAR(100),
+	CONSTRAINT FK_CARD_TRANSACTION FOREIGN KEY(source_card) 
+		REFERENCES cards(id),
+	CONSTRAINT FK_TYPE_TRANSACTION FOREIGN KEY(transaction_type) 
+		REFERENCES transactionTypes(id)
 )ENGINE=INNODB;
+
+CREATE VIEW v_user_cards AS 
+SELECT users.id AS user_id, CONCAT(users.first_name, ' ', users.last_name) AS full_name, users.email, cards.card_number, cardtypes.description_type, DATE_FORMAT(cards.expiration_date, "%m/%y") AS expiration_date, cards.CVV, cards.id AS card_id 
+FROM users JOIN cards ON users.id = cards.user_id JOIN cardtypes ON cards.card_type = cardtypes.id;
+
+DROP VIEW v_movements;
+CREATE VIEW v_movements AS
+SELECT cards.user_id, transactiontypes.description_type, date_format(transactions.transaction_date, '%d-%m-%Y') AS transaction_date, transactions.amount, services.service_description
+FROM transactions INNER JOIN cards ON transactions.source_card = cards.id INNER JOIN transactiontypes ON transactions.transaction_type = transactiontypes.id INNER JOIN services ON transactions.recipient_id = services.id
+WHERE transaction_type = 2
+UNION ALL
+SELECT c1.user_id, transactiontypes.description_type, date_format(transactions.transaction_date, '%d-%m-%Y') AS transaction_date, transactions.amount, c2.card_number
+FROM transactions INNER JOIN cards AS c1 ON transactions.source_card = c1.id INNER JOIN transactiontypes ON transactions.transaction_type = transactiontypes.id INNER JOIN cards AS c2 ON c2.id = transactions.recipient_id
+WHERE transaction_type = 1;
 
 DROP PROCEDURE IF EXISTS SP_CREATE_USER;
 DELIMITER //
-CREATE PROCEDURE SP_CREATE_USER(IN _first_name VARCHAR(40), IN _last_name VARCHAR(40), IN _email VARCHAR(60), IN _pass VARCHAR(20))
+CREATE PROCEDURE SP_CREATE_USER(IN _first_name VARCHAR(40), IN _last_name VARCHAR(40), IN _email VARCHAR(60), IN _pass VARCHAR(255))
 BEGIN 
 	IF _email NOT REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' THEN
 		SIGNAL SQLSTATE '45000'
@@ -58,17 +79,8 @@ BEGIN
 		SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Error: First name and last name are required';
 	END IF;
-    IF LENGTH(_pass) < 8 THEN
-		SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error: The password must be at least 8 characters long';
-	END IF;
-    
-    IF EXISTS(SELECT 1 FROM users WHERE email = _email) THEN
-		SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error: Ese correo ya ha sido registrado';
-	END IF;
-    
-    INSERT INTO users(first_name, last_name, email, pass) VALUES (_first_name, _last_name, _email, SHA1(_pass));
+
+    INSERT INTO users(first_name, last_name, email, pass) VALUES (_first_name, _last_name, _email, _pass);
 END//
 DELIMITER ;
 
@@ -117,9 +129,62 @@ BEGIN
 END//
 DELIMITER ;
 
-CREATE VIEW v_user_cards AS 
-SELECT users.id, CONCAT(users.first_name, ' ', users.last_name) AS full_name, users.email, cards.card_number, cardtypes.description_type, DATE_FORMAT(cards.expiration_date, "%m/%y") AS expiration_date, cards.CVV 
-FROM users JOIN cards ON users.id = cards.user_id JOIN cardtypes ON cards.card_type = cardtypes.id;
+DROP PROCEDURE IF EXISTS SP_CREATE_TRANSACTION;
+DELIMITER //
+CREATE PROCEDURE SP_CREATE_TRANSACTION(IN _source_card INT, IN _recipient_id INT, IN _transaction_date DATE, IN _amount DECIMAL(12,2), IN _transaction_type TINYINT, IN _concept VARCHAR(100))
+BEGIN 
+	INSERT INTO transactions(source_card, recipient_id, transaction_date, amount, transaction_type, concept) VALUES (_source_card, _recipient_id, _transaction_date, _amount, _transaction_type, _concept);
+END//
+DELIMITER ;
 
-INSERT INTO cardTypes (description_type) VALUES ('Credit card'), ('Debit card');
+DROP TRIGGER IF EXISTS T_AI_INSERT_BALANCE;
+DELIMITER $$
+CREATE TRIGGER T_AI_INSERT_BALANCE
+AFTER INSERT ON transactions
+FOR EACH ROW
+BEGIN
+	IF NEW.transaction_type = 1 THEN
+		UPDATE cards SET balance = balance - NEW.amount WHERE id = NEW.source_card;
+		UPDATE cards SET balance = balance + NEW.amount WHERE id = NEW.recipient_id;
+    END IF;
+    
+    IF NEW.transaction_type = 2 THEN
+		UPDATE cards SET balance = balance - NEW.amount WHERE id = NEW.source_card;
+    END IF;
+END$$
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS T_BI_INSERT_BALANCE;
+DELIMITER $$
+CREATE TRIGGER T_BI_INSERT_BALANCE
+BEFORE INSERT ON transactions
+FOR EACH ROW
+BEGIN
+	DECLARE _balance DECIMAL(12,2);
+    SELECT balance INTO _balance FROM cards WHERE id = NEW.source_card;
+    
+    IF NEW.amount > _balance THEN 
+		SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error: Saldo insuficiente';
+	END IF;
+END$$
+DELIMITER ;
+
+INSERT INTO cardTypes (description_type) VALUES ('Tarjeta de Crédito'), ('Tarjeta de Débito');
 SELECT * FROM cardTypes;
+
+INSERT INTO services (service_description) 
+VALUES
+('CFE - Servicio de electricidad'),
+('SAPAS - Servicio de agua potable'),
+('Gas Natural México - Servicio de gas natural'),
+('Telcel - Teléfono celular'),
+('Telmex - Teléfono fijo'),
+('Izzi - Servicio de internet'),
+('Netflix - Streaming de video'),
+('Spotify - Streaming de música'),
+('Disney+ - Streaming de video'),
+('Amazon Prime Video - Streaming de video');
+
+INSERT INTO transactionTypes (description_type) VALUES ('Transferencia'), ('Pago');
+

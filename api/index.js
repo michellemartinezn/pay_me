@@ -80,6 +80,42 @@ app.get('/cardTypes' , async (req, res) => {
     }    
 });
 
+app.get('/services' , async (req, res) => {
+    let db;
+    try {
+        db = await connect();
+        const query = "SELECT * FROM services";
+        const [rows] = await db.execute(query);
+        res.json({
+            data: rows,
+            status: 200
+        });
+    }catch(err) {
+        return res.status(500).json({message: db ? err.sqlMessage : "DB connection"}) 
+        throw err;
+    }finally {
+        if (db)  await db.end();
+    }    
+});
+
+app.get('/cards', checkToken, async (req, res) => { 
+    let db;
+    try{
+        db = await connect();
+        const query = `SELECT card_id, card_number FROM v_user_cards WHERE user_id =${req.idUser}`;
+        const [rows] = await db.execute(query);
+        res.json({
+            data: rows,
+            status: 200
+        })
+    } catch(err) {
+        return res.status(500).json({message: db ? err.sqlMessage : "DB connection"}) 
+    } finally {
+        if(db)
+            db.end();
+    }
+});
+
 
 app.post('/users', async (req, res) => { 
     let db;
@@ -122,6 +158,46 @@ app.post('/cards', checkToken, async (req, res) => {
             db.end();
     }
 });
+
+app.post('/payment', checkToken, async (req, res) => { 
+    let db;
+    try{
+        let { source_card, recipient_id, amount, concept } = req.body
+        let _date = new Date();
+        let mysqlDate = _date.getFullYear() + String(_date.getMonth() + 1).padStart(2, '0') + String(_date.getDate()).padStart(2, '0');
+        db = await connect();
+        let query = `CALL SP_CREATE_TRANSACTION(${source_card}, ${recipient_id}, '${mysqlDate}', ${amount}, 2, '${concept}')`;
+        let [rows] = await db.execute(query);
+        res.json({
+            data: rows,
+            status: 200
+        })
+    } catch(err) {
+       return res.status(500).json({message: db ? err.sqlMessage : "DB connection"}) 
+    } finally {
+        if(db)
+            db.end();
+    }
+});
+
+app.get('/movements', checkToken, async (req, res) => { 
+    let db;
+    try{
+        db = await connect();
+        const query = `SELECT description_type, transaction_date, amount, service_description FROM v_movements WHERE user_id=${req.idUser}`;
+        const [rows] = await db.execute(query);
+        res.json({
+            data: rows,
+            status: 200
+        })
+    } catch(err) {
+        return res.status(500).json({message: db ? err.sqlMessage : "DB connection"}) 
+    } finally {
+        if(db)
+            db.end();
+    }
+});
+
 
 function checkToken(req, res, next){
     const token = req.headers['authorization'];

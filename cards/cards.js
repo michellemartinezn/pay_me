@@ -28,7 +28,7 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
                 card_type: document.getElementById('card_type').value,
                 expiration_date: document.getElementById('expiration-date').value,
                 CVV: document.getElementById('cvv').value,
-                balance: document.getElementById('balance').value.replace("$", "").replace(",", "")
+                balance: document.getElementById('balance').value.replace("$", "").replace(/,/g, "")
             })
         });
         if (!response.ok) {
