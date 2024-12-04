@@ -99,6 +99,16 @@ h2 a{
     height: 25px;
 }
 
+.inputs select{
+    border-radius: 30px;
+    border: 1px solid #7A7485;
+    display: block; 
+    margin: 10px 0;
+    padding: 10px;
+    width: 60%;
+    height: 40px;
+}
+
 .inputs h2{
     color: #7A7485;
     font-family: "Josefin Sans";
