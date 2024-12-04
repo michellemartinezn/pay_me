@@ -10,107 +10,90 @@
 </head>
 <body>
 
-
     <div class="container">
         <div class="header">
-            <div class="container-header"></div>
+            <div class="container-header" id="headerContainer"></div>
 
-            <img src="../pm2.png" alt="pm" class="img-pm">
+            <img src="../pm2.png" alt="pm" class="img-pm" id="logoImage">
 
-            <div class="menu"> 
-            <p class="active"  style="color: #00085A;"> <strong> Inicio</strong> </p>
+            <div class="menu" id="menu"> 
+                <p class="active" id="inicio" style="color: #00085A;"> <strong> Inicio</strong> </p>
 
-                <p > <a href="../movements/movements.html" class="noline">Movimientos</a> </p>
-                <p><a href="../transfer/transfer.html" class="noline">Transferencias</a></p>
-                <p><a href="../cards/cards.html" class="noline">Tarjetas</a></p>
-                <p><a href="../payments/payments.html" class="noline">Realizar pagos</a></p>
+                <p> <a href="../movements/movements.html" class="noline" id="movementsLink">Movimientos</a> </p>
+                <p><a href="../transfer/transfer.html" class="noline" id="transferLink">Transferencias</a></p>
+                <p><a href="../cards/cards.html" class="noline" id="cardsLink">Tarjetas</a></p>
+                <p><a href="../payments/payments.html" class="noline" id="paymentsLink">Realizar pagos</a></p>
             </div>
-            
-
-            
-
         </div>
 
+        <div class="left" id="leftPanel">
+            <p class="saludo" id="welcome"> </p>
 
-        <div class="left">
-            <p class="saludo">Hola, Priscila</p>
-
-            <div class="container-card">
+            <div class="container-card" id="cardContainer">
         
-                <div class="card">
+                <div class="card" id="accountCard">
                     <div class="separar"> 
-                     <p class="cuenta">Cuenta   </p>
-                     <p class="numero-cuenta"> 23235</p>
-                     </div>
+                        <p class="cuenta" id="accountLabel">Cuenta</p>
+                        <p class="numero-cuenta" id="accountNumber">---  </p>
+                    </div>
 
-                     
-                    <p class="saldo-cuenta"> Saldo actual</p>
-                    <p class="saldo"> 23</p> 
+                    <p class="saldo-cuenta" id="balanceLabel">Saldo actual</p>
+                    <p class="saldo" id="currentBalance">23</p> 
                 </div>
 
             </div>
 
         </div>
 
+        <div class="right" id="rightPanel">
 
+            <table class="table" id="transactionTable"> 
 
+                <thead class="encabezado" id="tableHeader">
 
-
-        <div class="right">
-
-
-            <table class="table"> 
-
-                <thead class="encabezado">
-
-                    <th>Tipo</th>
-                    <th>Mi cuenta</th>
-                    <th>Destino</th>
-                    <th>Concepto</th>
+                    <th id="typeHeader">Tipo</th>
+                    <th id="myAccountHeader">Mi cuenta</th>
+                    <th id="destinationHeader">Destino</th>
+                    <th id="conceptHeader">Concepto</th>
                 </thead>
 
-                <tbody>
-                    <tr>
-                    <td>transferencia</td>
-                    <td>345456</td>
-                    <td>437568</td>
-                    <td>pagos</td>
-                </tr>
+                <tbody id="transactionBody">
+                    <tr id="transaction1">
+                        <td id="type1">transferencia</td>
+                        <td id="account1">345456</td>
+                        <td id="destination1">437568</td>
+                        <td id="concept1">pagos</td>
+                    </tr>
 
-                <tr>
-                    <td>transferencia</td>
-                    <td>345456</td>
-                    <td>437568</td>
-                    <td>pagos</td>
+                    <tr id="transaction2">
+                        <td id="type2">transferencia</td>
+                        <td id="account2">345456</td>
+                        <td id="destination2">437568</td>
+                        <td id="concept2">pagos</td>
+                    </tr>
 
-                </tr>
+                    <tr id="transaction3">
+                        <td id="type3">transferencia</td>
+                        <td id="account3">345456</td>
+                        <td id="destination3">437568</td>
+                        <td id="concept3">pagos</td>
+                    </tr>
 
-                <tr>
-                    <td>transferencia</td>
-                    <td>345456</td>
-                    <td>437568</td>
-                    <td>pagos</td>
-
-                </tr>
-                <tr>
-                    <td>transferencia</td>
-                    <td>345456</td>
-                    <td>437568</td>
-                    <td>pagos</td>
-
-                </tr>
-                
-                
-                
-
+                    <tr id="transaction4">
+                        <td id="type4">transferencia</td>
+                        <td id="account4">345456</td>
+                        <td id="destination4">437568</td>
+                        <td id="concept4">pagos</td>
+                    </tr>
                 </tbody>
 
             </table>
 
-
         </div>
-        
-      </div>
-    
+
+    </div>
+
+    <script src="inicio.js"></script>
+
 </body>
 </html>
