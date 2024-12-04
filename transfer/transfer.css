@@ -9,41 +9,60 @@ body{
     grid-row-start: 1;
     grid-column: 2/8;
     margin-top: 2.5%;
+    width: 100%;
+    justify-content: space-between;
     gap: 10px;
-    align-content: start;
-
+    grid-template-columns: repeat(6, 1fr);
+    
 }
 
+.log-out{
+    border-radius: 30px;
+    border: 1px solid #7A7485;
+    display: outside; 
+    margin: 10px 0;
+    padding: 10px;
+    width: 95%;
+    height: 25px;
+}
 h2{
     font-family: "Josefin Sans";
-    font-size: 23px;
-    font-style: normal;
+    font-size: clamp(.2rem, 3vw, 1.4rem);
     font-weight: 500;
-    line-height: normal;
+    line-height: 1.5;
     text-align: center;
 
 }
 
 h2:nth-child(1) {
-    grid-column: 3 / 4;
+    grid-column: 1;
 }
 
 h2:nth-child(2) {
-    grid-column: 4 / 5; 
+    grid-column: 2; 
 }
 
 h2:nth-child(3) {
     color: #00085A;
     font-weight: 700;
-    grid-column: 5 / 6; 
+    grid-column: 3; 
 }
 
 h2:nth-child(4) {
-    grid-column: 6 / 7; 
+    grid-column: 4; 
 }
 
 h2:nth-child(5) {
-    grid-column: 7 / 8; 
+    grid-column: 5; 
+}
+
+h2:nth-child(6) {
+    grid-column: 6; 
+}
+
+h2 a{
+    text-decoration: none;
+    color: inherit;
 }
 
 .blue_line{
@@ -52,7 +71,7 @@ h2:nth-child(5) {
     flex-shrink: 0;
     border-radius: 40px;
     background: #00085A;
-    grid-column: 5/6;
+    grid-column: 3;
     grid-row: 2;
     justify-self: center;
     margin-top: -20px;
@@ -97,6 +116,16 @@ h2 a{
     padding: 10px;
     width: 80%;
     height: 25px;
+}
+
+.inputs select{
+    border-radius: 30px;
+    border: 1px solid #7A7485;
+    display: block; 
+    margin: 10px 0;
+    padding: 10px;
+    width: 60%;
+    height: 45px;
 }
 
 .inputs h2{
