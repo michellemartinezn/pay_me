@@ -16,63 +16,77 @@
     
 <body>
 
-    <div class="menu">
-        <h2><a href="../inicio/inicio.html">Inicio</a></h2>
-        <h2><a href="../movements/movements.html">Movimientos</a></h2>
-        <h2><a href="../transfer/transfer.html">Transferencias</a></h2>
-        <h2><a href="../cards/cards.html">Tarjetas</a></h2>
-        <h2><a href="../payments/payments.html">Realizar pagos</a></h2>
-        <h2 class="log-out">Cerrar Sesión</h2>
-        <div class="blue_line"></div>
-    </div>
-    <div class="filter-rectangle">
-        <div class="filter">
-            <div class="date">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Fecha
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Mes</a></li>
-                      <li><a class="dropdown-item" href="#">Año</a></li>
-                    </ul>
-                  </div>
+    <div class="container">
+        <div class="header">
+            <div class="container-header"></div>
+    
+            <img src="../pm2.png" alt="pm" class="img-pm">
+    
+            <div class="menu"> 
+                <p><a href="../inicio/inicio.html" class="noline">Inicio</a></p>
+                <p class="active"  style="color: #00085A;"> <strong>Movimientos</strong> </p>
+                <p><a href="../movements/movements.html" class="noline">Movimientos</a> </p>
+                <p><a href="../transfer/transfer.html" class="noline">Transferencias</a></p>
+                <p><a href="../cards/cards.html" class="noline">Tarjetas</a></p>
+                <p><a href="../payments/payments.html" class="noline">Realizar pagos</a></p>
+                <p>Cerrar Sesión</p>
             </div>
-
-            <div class="type">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Tipo
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Transferencia</a></li>
-                      <li><a class="dropdown-item" href="#">Pago</a></li>
-                    </ul>
-                  </div>
+            
+    
+            
+    
+        </div>
+        <div class="filter-rectangle">
+            <div class="filter">
+                <div class="date">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Fecha
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Mes</a></li>
+                          <li><a class="dropdown-item" href="#">Año</a></li>
+                        </ul>
+                      </div>
+                </div>
+    
+                <div class="type">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Tipo
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Transferencia</a></li>
+                          <li><a class="dropdown-item" href="#">Pago</a></li>
+                        </ul>
+                      </div>
+                </div>
+    
+                <div class="filter-button">
+                    <button>Filtrar</button>
+                </div>
+    
             </div>
-
-            <div class="filter-button">
-                <button>Filtrar</button>
-            </div>
-
+    
+        </div>
+    
+        <table class="movements-table">
+            <tr class="movements-table-fields">
+                <th>Fecha</th>
+                <th>Monto</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+            </tr>
+    
+            <tr class="grey-line"></tr>
+            
+        </table>
+    
+    
         </div>
 
     </div>
 
-    <table class="movements-table">
-        <tr class="movements-table-fields">
-            <th>Fecha</th>
-            <th>Monto</th>
-            <th>Tipo</th>
-            <th>Descripción</th>
-        </tr>
-
-        <tr class="grey-line"></tr>
-        
-    </table>
-
-
-    </div>
 
     <script src="movements.js"></script>
 </body>
