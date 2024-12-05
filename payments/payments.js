@@ -89,7 +89,7 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
             window.alert("Se registro el pago del servicio");
             //document.getElementById("error").innerHTML = "Se registro el pago del servicio"
         }
-x    } catch (error) {
+    } catch (error) {
         document.getElementById("error").innerHTML = error.message
     }
 });
