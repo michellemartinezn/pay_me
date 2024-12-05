@@ -42,24 +42,27 @@
 
             <div class="receiver-card">
                 <h2>Cuenta destinatario</h2>
-                <input type="number" id="receiver" placeholder="0000 0000 0000 0000" class="borde">
+                <select class="border" id="receiver-card">
+                </select>
             </div>
             <div class="amount">
                 <h2>Monto</h2>
-                <input type="number" id="amount" placeholder="$" class="borde">
+                <input type="text" id="amount" placeholder="$0.00" maxlength="15" oninput="formatCurrency(this)" class="borde">
             </div>
 
             <div class="concept">
                 <h2>Concepto</h2>
-                <input type="text" id="concept" placeholder="" class="borde">
+                <input type="text" id="concept" class="borde">
             </div>
         </div>
 
     </div>
     
-    <button class="accept-button">Aceptar</button>
-
-
+    <button class="accept-button" id="pay-button">Aceptar</button>
+    <div>
+        <p class="error" id="error"></p>
+    </div>
+    
     <script src="transfer.js"></script>
 </body>
 </html>

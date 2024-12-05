@@ -63,7 +63,7 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = 'http://' + window.location.hostname + ':3000/payment'
+            let apiURL = 'http://' + window.location.hostname + ':3000/transaction'
             let cb_service = document.getElementById('service');
             let concept = cb_service.options[cb_service.selectedIndex].text;
             let response = await fetch(apiURL, {
@@ -77,6 +77,7 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
                     source_card: document.getElementById('user_cards').value,
                     recipient_id: document.getElementById('service').value,
                     amount: document.getElementById('amount').value.replace("$", "").replace(/,/g, ""),
+                    transaction_type: 2,
                     concept: concept
                 })
             });
@@ -85,9 +86,10 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
                 throw new Error(message);
             }
             let data = await response.json();
-            document.getElementById("error").innerHTML = "Se registro el pago del servicio"
+            window.alert("Se registro el pago del servicio");
+            //document.getElementById("error").innerHTML = "Se registro el pago del servicio"
         }
-    } catch (error) {
+x    } catch (error) {
         document.getElementById("error").innerHTML = error.message
     }
 });
