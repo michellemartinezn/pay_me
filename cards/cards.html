@@ -12,36 +12,47 @@
     </head>
     
 <body>
-    <div class="menu">
-        <h2><a href="../inicio/inicio.html">Inicio</a></h2>
-        <h2><a href="../movements/movements.html">Movimientos</a></h2>
-        <h2><a href="../transfer/transfer.html">Transferencias</a></h2>
-        <h2><a href="../cards/cards.html">Tarjetas</a></h2>
-        <h2><a href="../payments/payments.html">Realizar pagos</a></h2>
-        <h2 class="log-out">Cerrar Sesión</h2>
-        <div class="blue_line"></div>
-    </div>
-
     <div class="container">
+        <div class="header">
+            <div class="container-header"></div>
+
+            <img src="../pm2.png" alt="pm" class="img-pm">
+
+            <div class="menu"> 
+            <p><a href="../inicio/inicio.html" class="noline">Inicio</a></p>
+
+                <p > <a href="../movements/movements.html" class="noline">Movimientos</a> </p>
+                <p><a href="../transfer/transfer.html" class="noline">Transferencias</a></p>
+                <p class="active"  style="color: #00085A;"> <strong> Tarjetas</strong> </p>
+                <p><a href="../payments/payments.html" class="noline">Realizar pagos</a></p>
+                <p>Cerrar Sesión</p>
+            </div>
+            
+
+            
+
+        </div>
+        
         <h1 class="title">Agregar tarjeta</h1>
-        <div class="inputs">
-            <div class="card-type">
+        <div class="left">
+            <div class="card_type">
                 <h2>Tipo</h2>
                 <select class="border" id="card_type">
-                    <option value = "1">Tipo de tarjeta 1</option>
-                    <option value = "2">Tipo de tarjeta 2</option>
                 </select>
             </div>
             <div class="card">
                 <h2>Numero de tarjeta</h2>
                 <input type="text" id="card" placeholder="0000 0000 0000 0000" class="border" maxlength="19" oninput="formatCardNumber(this)">
             </div>
-
             <div class="expiration-date">
                 <h2>Fecha de vencimiento</h2>
                 <input type="text" id="expiration-date" placeholder="mm/aa" class="border" maxlength="5" oninput="formatExpiryDate(this)">
             </div>
-
+            
+            
+        </div>
+        
+        <div class="right" >
             <div class="cvv">
                 <h2>CVV</h2>
                 <input type="text" id="cvv" placeholder="000" class="border" maxlength="3" oninput="formatCVV(this)">
@@ -50,8 +61,11 @@
                 <h2>Saldo</h2>
                 <input type="text" id="balance" placeholder="$0.00" class="border" maxlength="15" oninput="formatCurrency(this)">
             </div>
+            
             <button class="accept-button" id="addCard">Agregar</button>
         </div>
+        
+
         <div>
             <p class="error" id="error"></p>
         </div>
