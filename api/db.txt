@@ -54,17 +54,22 @@ CREATE TABLE transactions(
 )ENGINE=INNODB;
 
 CREATE VIEW v_user_cards AS 
-SELECT users.id AS user_id, CONCAT(users.first_name, ' ', users.last_name) AS full_name, users.email, cards.card_number, cardtypes.description_type, DATE_FORMAT(cards.expiration_date, "%m/%y") AS expiration_date, cards.CVV, cards.id AS card_id 
+SELECT users.id AS user_id, CONCAT(users.first_name, ' ', users.last_name) AS full_name, users.email, cards.card_number, cardtypes.description_type, cards.balance, DATE_FORMAT(cards.expiration_date, "%m/%y") AS expiration_date, cards.CVV, cards.id AS card_id 
 FROM users JOIN cards ON users.id = cards.user_id JOIN cardtypes ON cards.card_type = cardtypes.id;
 
 CREATE VIEW v_movements AS
-SELECT cards.user_id, transactiontypes.description_type, date_format(transactions.transaction_date, '%d-%m-%Y') AS transaction_date, transactions.amount, services.service_description
-FROM transactions INNER JOIN cards ON transactions.source_card = cards.id INNER JOIN transactiontypes ON transactions.transaction_type = transactiontypes.id INNER JOIN services ON transactions.recipient_id = services.id
-WHERE transaction_type = 2
+SELECT cards.user_id, cards.card_number, transactiontypes.description_type, date_format(transactions.transaction_date, '%d-%m-%Y') AS transaction_date, transactions.concept, transactions.amount
+FROM transactions INNER JOIN cards ON transactions.recipient_id = cards.id INNER JOIN transactiontypes ON transactions.transaction_type = transactiontypes.id 
+WHERE transaction_type = 1
 UNION ALL
-SELECT c1.user_id, transactiontypes.description_type, date_format(transactions.transaction_date, '%d-%m-%Y') AS transaction_date, transactions.amount, c2.card_number
-FROM transactions INNER JOIN cards AS c1 ON transactions.source_card = c1.id INNER JOIN transactiontypes ON transactions.transaction_type = transactiontypes.id INNER JOIN cards AS c2 ON c2.id = transactions.recipient_id
-WHERE transaction_type = 1;
+SELECT cards.user_id, cards.card_number, transactiontypes.description_type, date_format(transactions.transaction_date, '%d-%m-%Y') AS transaction_date, transactions.concept, transactions.amount * -1
+FROM transactions INNER JOIN cards ON transactions.source_card = cards.id INNER JOIN transactiontypes ON transactions.transaction_type = transactiontypes.id 
+WHERE transaction_type = 1
+UNION ALL
+SELECT cards.user_id, cards.card_number, transactiontypes.description_type, date_format(transactions.transaction_date, '%d-%m-%Y') AS transaction_date, transactions.concept, transactions.amount * -1
+FROM transactions INNER JOIN cards ON transactions.source_card = cards.id INNER JOIN transactiontypes ON transactions.transaction_type = transactiontypes.id 
+WHERE transaction_type = 2;
+
 
 DROP PROCEDURE IF EXISTS SP_CREATE_USER;
 DELIMITER //
@@ -186,4 +191,3 @@ VALUES
 ('Amazon Prime Video - Streaming de video');
 
 INSERT INTO transactionTypes (description_type) VALUES ('Transferencia'), ('Pago');
-

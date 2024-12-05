@@ -29,9 +29,12 @@
         <div class="left" id="leftPanel">
             <p class="saludo" id="welcome"> </p>
 
-            <div class="container-card" id="cardContainer">
+        <div class="left">
+            <p class="saludo" id="saludo">Hola, Priscila</p>
+
+            <div class="container-card">
         
-                <div class="card" id="accountCard">
+                <div class="card" id="cards">
                     <div class="separar"> 
                         <p class="cuenta" id="accountLabel">Cuenta</p>
                         <p class="numero-cuenta" id="accountNumber">---  </p>
@@ -45,39 +48,21 @@
 
         </div>
 
-        <div class="right" id="rightPanel">
+        <div class="right">
 
-            <table class="table" id="transactionTable"> 
 
-                <thead class="encabezado" id="tableHeader">
+            <table class="table"> 
 
-                    <th id="typeHeader">Tipo</th>
-                    <th id="myAccountHeader">Mi cuenta</th>
-                    <th id="destinationHeader">Destino</th>
-                    <th id="conceptHeader">Concepto</th>
+                <thead class="encabezado">
+
+                    <th>Tipo</th>
+                    <th>Fecha</th>
+                    <th>Mi cuenta</th>
+                    <th>Monto</th>
+                    <th>Concepto</th>
                 </thead>
 
-                <tbody id="transactionBody">
-                    <tr id="transaction1">
-                        <td id="type1"></td>
-                        <td id="account1"></td>
-                        <td id="destination1"></td>
-                        <td id="concept1"></td>
-                    </tr>
-
-                    <tr id="transaction2">
-                        <td id="type2"></td>
-                        <td id="account2"></td>
-                        <td id="destination2"></td>
-                        <td id="concept2"></td>
-                    </tr>
-
-                    <tr id="transaction3">
-                        <td id="type3"></td>
-                        <td id="account3"></td>
-                        <td id="destination3"></td>
-                        <td id="concept3"></td>
-                    </tr>
+                <tbody id="movements">
 
                     <tr id="transaction4">
                         <td id="type4"></td>
@@ -90,10 +75,8 @@
             </table>
 
         </div>
-
-    </div>
-
+        
+      </div>
     <script src="inicio.js"></script>
-
 </body>
 </html>
