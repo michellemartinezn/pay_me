@@ -11,7 +11,7 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
         if(document.getElementById("cvv").value.length < 3)
             throw new Error('Error: CVV no válido')
 
-        let apiURL = 'http://' + window.location.hostname + ':3000/cards'
+        let apiURL = sessionStorage.getItem('apiURL') + 'cards'
         const token = sessionStorage.getItem('token');
     
         let response = await fetch(apiURL, {
@@ -41,7 +41,7 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
 
 
 async function get_card_type(){
-    let apiURL = 'http://' + window.location.hostname + ':3000/cardTypes';
+    let apiURL = sessionStorage.getItem('apiURL') + 'cardTypes';
     let response = await fetch(apiURL);
     if (!response.ok) {
         const { message } = await response.json();

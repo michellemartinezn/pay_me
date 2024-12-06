@@ -14,7 +14,7 @@ async function get_movements(){
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = 'http://' + window.location.hostname + ':3000/movements'
+            let apiURL = sessionStorage.getItem('apiURL') + 'movements'
             let response = await fetch(apiURL, {
                 method: 'POST',
                 headers: {
