@@ -33,9 +33,17 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
             throw new Error(message);
         }
         let data = await response.json();
-        window.alert("Se registro la tarjeta");
-    } catch (error) {
-        document.getElementById("error").innerHTML = error.message
+        Swal.fire({
+            title: "Tarjeta registrada!",
+            text: "Se ha registrado exitosamente la tarjeta",
+            icon: "success"
+          });
+} catch (error) {
+        await Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+        });
     }
 });
 

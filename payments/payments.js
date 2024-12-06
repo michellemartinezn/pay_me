@@ -1,6 +1,3 @@
-import Swal from 'sweetalert2'
-
-const Swal = require('sweetalert2')
 
 function formatCurrency(input) {
     let value = input.value;
@@ -39,9 +36,14 @@ async function get_user_cards() {
                 options = options + `<Option value="${element.card_id}">${element.card_number}</option>`;
             });
             document.getElementById('user_cards').innerHTML = options;
+
         }
     } catch (error) {
-        console.error(error);
+        await Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+        });
     }
 }
 
@@ -69,7 +71,15 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
         else {
             let apiURL = sessionStorage.getItem('apiURL') + 'transaction'
             let cb_service = document.getElementById('service');
+            if(!document.getElementById('amount').value)
+                throw new Error('Se debe indicar un monto')
+
+            let amount = document.getElementById('amount').value.replace("$", "").replace(/,/g, "")
             let concept = cb_service.options[cb_service.selectedIndex].text;
+            console.log(amount)
+            if (parseInt(amount) == 0)
+                throw new Error('El monto deber ser mayor a $0.00')
+ 
             let response = await fetch(apiURL, {
                 method: 'POST',
                 headers: {
@@ -80,7 +90,7 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
                 body: JSON.stringify({
                     source_card: document.getElementById('user_cards').value,
                     recipient_id: document.getElementById('service').value,
-                    amount: document.getElementById('amount').value.replace("$", "").replace(/,/g, ""),
+                    amount: amount,
                     transaction_type: 2,
                     concept: concept
                 })
@@ -98,7 +108,11 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
             //document.getElementById("error").innerHTML = "Se registro el pago del servicio"
         }
     } catch (error) {
-        document.getElementById("error").innerHTML = error.message
+        await Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+        });
     }
 });
 
