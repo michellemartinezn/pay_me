@@ -37,7 +37,11 @@ async function get_user_cards() {
             document.getElementById('card').innerHTML = options;
         }
     } catch (error) {
-        console.error(error);
+        await Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+        });
     }
 }
 
@@ -68,7 +72,11 @@ async function get_recipient_cards() {
             document.getElementById('receiver-card').innerHTML = options;
         }
     } catch (error) {
-        console.error(error);
+        await Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+        });
     }
 }
 
@@ -108,12 +116,19 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
                 throw new Error(message);
             }
             let data = await response.json();
-            window.alert("Se registro la transferencia");
-            //document.getElementById("error").innerHTML = "Se registro la transferencia"
+            Swal.fire({
+                title: "Transferencia exitosa!",
+                text: "Se ha registrado con exito la transferencia",
+                icon: "success"
+              });
 
         }
     } catch (error) {
-        document.getElementById("error").innerHTML = error.message
+        await Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+        });
     }
 });
 
