@@ -222,3 +222,23 @@ h2{
         margin-top: 1.3em;
     }
 }
+
+
+.input-control.error input{
+    border: 3px solid #BE0000;
+    border-radius: 30px;
+    
+}
+
+.input-control.error .error {
+    display: block; 
+}
+
+
+
+.error {
+    color: #BE0000;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 5px;
+}
