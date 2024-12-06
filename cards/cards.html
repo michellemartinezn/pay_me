@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tarjetas</title>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="cards.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,40 +36,39 @@
         
         <h1 class="title">Agregar tarjeta</h1>
         <div class="left">
-            <div class="card_type">
                 <h2>Tipo</h2>
                 <select class="border" id="card_type">
                 </select>
-            </div>
-            <div class="card">
-                <h2>Numero de tarjeta</h2>
+
+            <div class="input-control">
+                <h2 for="card">Numero de tarjeta</h2>
                 <input type="text" id="card" placeholder="0000 0000 0000 0000" class="border" maxlength="19" oninput="formatCardNumber(this)">
+                <div class="error" id="card-error"></div>
             </div>
-            <div class="expiration-date">
-                <h2>Fecha de vencimiento</h2>
+
+            <div class="input-control">
+                <h2 for="expiration-date">Fecha de vencimiento</h2>
                 <input type="text" id="expiration-date" placeholder="mm/aa" class="border" maxlength="5" oninput="formatExpiryDate(this)">
+                <div class="error" id="expiration-error"></div>
             </div>
             
             
         </div>
         
         <div class="right" >
-            <div class="cvv">
-                <h2>CVV</h2>
+
+            <div class="input-control">
+                <h2 for="cvv">CVV</h2>
                 <input type="text" id="cvv" placeholder="000" class="border" maxlength="3" oninput="formatCVV(this)">
+                <div class="error" id="cvv-error"></div>
             </div>
-            <div class="balance">
-                <h2>Saldo</h2>
+
+                <h2 for="balance">Saldo</h2>
                 <input type="text" id="balance" placeholder="$0.00" class="border" maxlength="15" oninput="formatCurrency(this)">
-            </div>
             
             <button class="accept-button" id="addCard">Agregar</button>
         </div>
         
-
-        <div>
-            <p class="error" id="error"></p>
-        </div>
     </div>
     <script src="cards.js"></script>
 </body>

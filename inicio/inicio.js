@@ -4,7 +4,7 @@ async function get_movements(){
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = sessionStorage.getItem('apiURL') + 'movements'
+            let apiURL = 'http://' + window.location.hostname + ':3000/movements'
             let response = await fetch(apiURL, {
                 method: 'GET',
                 headers: {
@@ -35,49 +35,13 @@ async function get_movements(){
     }
 }
 
-//adbsfbs
-// async function get_cards(){
-//     try {
-//         let token = sessionStorage.getItem('token');
-//         if (token == null)
-//             window.location.href = '../login/login.html'; 
-//         else {
-//             let apiURL = 'http://' + window.location.hostname + ':3000/cards'
-//             let response = await fetch(apiURL, {
-//                 method: 'GET',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                     'authorization': token
-//                 }
-//             });
-//             if (!response.ok) {
-//                 const { message } = await response.json();
-//                 throw new Error(message);
-//             }
-//             let movements = await response.json();
-//             let options = '';
-//             console.log(movements)
-//             movements.data.forEach(element => {
-//                 options = options + `<div class="separar"> 
-//                                         <p class="cuenta">${element.description_type}</p>
-//                                         <p class="numero-cuenta"> ${element.card_number}</p>
-//                                     </div>
-//                                     <p class="saldo-cuenta">Saldo actual</p>
-//                                     <p class="saldo"> ${element.balance}</p> `;
-//             });
-//             document.getElementById('cards').innerHTML = options;
-//         }
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
-async function get_cards() {
+async function get_cards(){
     try {
         let token = sessionStorage.getItem('token');
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = sessionStorage.getItem('apiURL') + 'cards'
+            let apiURL = 'http://' + window.location.hostname + ':3000/cards'
             let response = await fetch(apiURL, {
                 method: 'GET',
                 headers: {
@@ -89,22 +53,17 @@ async function get_cards() {
                 const { message } = await response.json();
                 throw new Error(message);
             }
-            let cards = await response.json();
-            let options = ''; 
-
-            
-            cards.data.forEach(element => {
-                options += `<div class="card">
-                                <div class="separar"> 
-                                    <p class="cuenta">${element.description_type}</p>
-                                    <p class="numero-cuenta">${element.card_number}</p>
-                                </div>
-                                <p class="saldo-cuenta">Saldo actual</p>
-                                <p class="saldo">${element.balance}</p>
-                            </div>`;
+            let movements = await response.json();
+            let options = '';
+            console.log(movements)
+            movements.data.forEach(element => {
+                options = options + `<div class="separar"> 
+                                        <p class="cuenta">${element.description_type}</p>
+                                        <p class="numero-cuenta"> ${element.card_number}</p>
+                                    </div>
+                                    <p class="saldo-cuenta">Saldo actual</p>
+                                    <p class="saldo"> ${element.balance}</p> `;
             });
-
-            
             document.getElementById('cards').innerHTML = options;
         }
     } catch (error) {
@@ -113,13 +72,17 @@ async function get_cards() {
 }
 
 
+
+
+
+
 async function GetCurrentUser() {
     try {
         let token = sessionStorage.getItem('token');
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = sessionStorage.getItem('apiURL') + 'user'
+            let apiURL = 'http://' + window.location.hostname + ':3000/user'
             let response = await fetch(apiURL, {
                 method: 'GET',
                 headers: {
