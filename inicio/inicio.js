@@ -4,7 +4,7 @@ async function get_movements(){
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = 'http://' + window.location.hostname + ':3000/movements'
+            let apiURL = sessionStorage.getItem('apiURL') + 'movements'
             let response = await fetch(apiURL, {
                 method: 'GET',
                 headers: {
@@ -41,7 +41,7 @@ async function get_cards(){
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = 'http://' + window.location.hostname + ':3000/cards'
+            let apiURL = sessionStorage.getItem('apiURL') + 'cards'
             let response = await fetch(apiURL, {
                 method: 'GET',
                 headers: {
@@ -57,12 +57,16 @@ async function get_cards(){
             let options = '';
             console.log(movements)
             movements.data.forEach(element => {
-                options = options + `<div class="separar"> 
-                                        <p class="cuenta">${element.description_type}</p>
-                                        <p class="numero-cuenta"> ${element.card_number}</p>
+                let balance = Intl.NumberFormat('es-MX', {style: 'currency', currency: 'MXN'}).format(element.balance);
+                options = options + `<div class="card" id="cards">
+                                        <div class="separar"> 
+                                            <p class="cuenta">${element.description_type}</p>
+                                            <p class="numero-cuenta"> ${element.card_number}</p>
+                                        </div>
+                                        <p class="saldo-cuenta">Saldo actual</p>
+                                        <p class="saldo"> ${balance}</p> 
                                     </div>
-                                    <p class="saldo-cuenta">Saldo actual</p>
-                                    <p class="saldo"> ${element.balance}</p> `;
+                                    <p>`;
             });
             document.getElementById('cards').innerHTML = options;
         }
@@ -77,7 +81,7 @@ async function GetCurrentUser() {
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = 'http://' + window.location.hostname + ':3000/user'
+            let apiURL = sessionStorage.getItem('apiURL') + 'user'
             let response = await fetch(apiURL, {
                 method: 'GET',
                 headers: {

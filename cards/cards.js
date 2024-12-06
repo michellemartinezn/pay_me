@@ -2,7 +2,6 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
     event.preventDefault(); 
 
     try {
-
         if(document.getElementById("card").value.length < 19)
             throw new Error('Error: El número de tarjeta no es válido')
 
@@ -12,10 +11,8 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
         if(document.getElementById("cvv").value.length < 3)
             throw new Error('Error: CVV no válido')
 
-        let apiURL = 'http://' + window.location.hostname + ':3000/cards'
+        let apiURL = sessionStorage.getItem('apiURL') + 'cards'
         const token = sessionStorage.getItem('token');
-        let prueba =  document.getElementById('balance').value.replace("$", "").replace(/,/g, "");
-        console.log(prueba);
     
         let response = await fetch(apiURL, {
             method: 'POST',
@@ -36,6 +33,7 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
             throw new Error(message);
         }
         let data = await response.json();
+        window.alert("Se registro la tarjeta");
     } catch (error) {
         document.getElementById("error").innerHTML = error.message
     }
@@ -43,7 +41,7 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
 
 
 async function get_card_type(){
-    let apiURL = 'http://' + window.location.hostname + ':3000/cardTypes';
+    let apiURL = sessionStorage.getItem('apiURL') + 'cardTypes';
     let response = await fetch(apiURL);
     if (!response.ok) {
         const { message } = await response.json();

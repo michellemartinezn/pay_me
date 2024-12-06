@@ -16,6 +16,7 @@
     
 <body>
 
+<<<<<<< HEAD
     <div class="container">
         <div class="header">
             <div class="container-header"></div>
@@ -29,63 +30,66 @@
                 <p><a href="../cards/cards.html" class="noline">Tarjetas</a></p>
                 <p><a href="../payments/payments.html" class="noline">Realizar pagos</a></p>
                 <p>Cerrar Sesión</p>
+=======
+    <div class="menu">
+        <h2><a href="../inicio/inicio.html">Inicio</a></h2>
+        <h2><a href="../movements/movements.html">Movimientos</a></h2>
+        <h2><a href="../transfer/transfer.html">Transferencias</a></h2>
+        <h2><a href="../cards/cards.html">Tarjetas</a></h2>
+        <h2><a href="../payments/payments.html">Realizar pagos</a></h2>
+        <h2 class="log-out">Cerrar Sesión</h2>
+        <div class="blue_line"></div>
+    </div>
+    <div class="filter-rectangle">
+        <div class="filter">
+            <div class="date">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Fecha
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><input type="date" title="date" id="date" onblur="set_selected_date()"></li>
+                    </ul>
+                  </div>
+                  <span id="selected_date"></span>
+>>>>>>> 08b820e553e92b4ca1173646ef1b380cfaf51ee0
             </div>
-            
-    
-            
-    
-        </div>
-        <div class="filter-rectangle">
-            <div class="filter">
-                <div class="date">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Fecha
-                        </button>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Mes</a></li>
-                          <li><a class="dropdown-item" href="#">Año</a></li>
-                        </ul>
-                      </div>
-                </div>
-    
-                <div class="type">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Tipo
-                        </button>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Transferencia</a></li>
-                          <li><a class="dropdown-item" href="#">Pago</a></li>
-                        </ul>
-                      </div>
-                </div>
-    
-                <div class="filter-button">
-                    <button>Filtrar</button>
-                </div>
-    
-            </div>
-    
-        </div>
-    
-        <table class="movements-table">
-            <tr class="movements-table-fields">
-                <th>Fecha</th>
-                <th>Monto</th>
-                <th>Tipo</th>
-                <th>Descripción</th>
-            </tr>
-    
-            <tr class="grey-line"></tr>
-            
-        </table>
-    
-    
-        </div>
 
+            <div class="type">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Tipo
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" onblur="set_selected_type(event)">Transferencia</a></li>
+                        <li><a class="dropdown-item" href="#" onblur="set_selected_type(event)">Pago</a></li>
+                    </ul>
+                </div>
+                <span id="selected_type"></span>
+            </div>
+            
+            
+
+            <div class="filter-button">
+                <button onclick="get_movements()">Filtrar</button>
+            </div>
+        </div>
     </div>
 
+    <table  class="movements-table">
+        <thead>
+            <th>Movimiento</th>
+            <th>Fecha</th>
+            <th>Tarjeta</th>
+            <th>Monto</th>
+            <th>Concepto</th>
+        </thead>
+        <tbody id="movements">
+
+        </tbody>
+
+    </table>
+    </div>
 
     <script src="movements.js"></script>
 </body>

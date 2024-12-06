@@ -21,7 +21,8 @@ document.getElementById('register').addEventListener('click', async (event) => {
         if(document.getElementById("password").value.lenght < 8)
             throw new Error('Error: La contraseña debe tener al menos 8 caracteres')
         
-        let apiURL = 'http://' + window.location.hostname + ':3000/users'
+        let apiURL = sessionStorage.getItem('apiURL') + 'users'
+        
 
         let response = await fetch(apiURL, {
             method: 'POST',

@@ -21,7 +21,7 @@ async function get_user_cards() {
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = 'http://' + window.location.hostname + ':3000/cards'
+            let apiURL = sessionStorage.getItem('apiURL') + 'cards'
             let response = await fetch(apiURL, {
                 method: 'GET',
                 headers: {
@@ -46,7 +46,7 @@ async function get_user_cards() {
 }
 
 async function get_services(){
-    let apiURL = 'http://' + window.location.hostname + ':3000/services';
+    let apiURL = sessionStorage.getItem('apiURL') + 'services';
     let response = await fetch(apiURL);
     if (!response.ok) {
         const { message } = await response.json();
@@ -67,7 +67,7 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = 'http://' + window.location.hostname + ':3000/transaction'
+            let apiURL = sessionStorage.getItem('apiURL') + 'transaction'
             let cb_service = document.getElementById('service');
             let concept = cb_service.options[cb_service.selectedIndex].text;
             let response = await fetch(apiURL, {
