@@ -2,7 +2,6 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
     event.preventDefault(); 
 
     try {
-
         if(document.getElementById("card").value.length < 19)
             throw new Error('Error: El número de tarjeta no es válido')
 
@@ -14,8 +13,6 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
 
         let apiURL = 'http://' + window.location.hostname + ':3000/cards'
         const token = sessionStorage.getItem('token');
-        let prueba =  document.getElementById('balance').value.replace("$", "").replace(/,/g, "");
-        console.log(prueba);
     
         let response = await fetch(apiURL, {
             method: 'POST',
@@ -36,6 +33,7 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
             throw new Error(message);
         }
         let data = await response.json();
+        window.alert("Se registro la tarjeta");
     } catch (error) {
         document.getElementById("error").innerHTML = error.message
     }

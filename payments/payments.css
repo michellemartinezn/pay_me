@@ -128,6 +128,16 @@ h2 a{
     text-align: left;
 }
 
+.inputs select{
+    border-radius: 30px;
+    border: 1px solid #7A7485;
+    display: block; 
+    margin: 10px 0;
+    padding: 10px;
+    width: 60%;
+    height: 45px;
+}
+
 .method{
     grid-column: 1;
 }

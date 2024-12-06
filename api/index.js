@@ -49,7 +49,6 @@ app.post('/login', async (req, res) => {
             idUser, 
             exp: Date.now() + 60 * 10000
         }, process.env.SECRET)
-        console.log(token);
         res.json({
             data: token,
             status: 200
@@ -215,6 +214,35 @@ app.get('/movements', checkToken, async (req, res) => {
             db.end();
     }
 });
+
+app.post('/movements', checkToken, async (req, res) => { 
+    let db;
+    try{
+        let {date, type} = req.body;
+        db = await connect();
+        let query = `SELECT description_type, card_number, transaction_date, amount, concept FROM v_movements WHERE user_id=${req.idUser}`;
+        if(date.length > 0) {
+            let [year, month, day] = date.split("-"); 
+            query= query.concat(` AND transaction_date = '${day}-${month}-${year}'`);
+        }
+        if(type.length > 0){
+            query= query.concat(` AND description_type = '${type}'`);
+        }
+
+        console.log(query)
+        const [rows] = await db.execute(query);
+        res.json({
+            data: rows,
+            status: 200
+        })
+    } catch(err) {
+        return res.status(500).json({message: db ? err.sqlMessage : "DB connection"}) 
+    } finally {
+        if(db)
+            db.end();
+    }
+});
+
 
 
 function checkToken(req, res, next){

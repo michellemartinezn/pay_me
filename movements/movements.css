@@ -166,7 +166,7 @@ h2 a{
 
 .movements-table-fields{
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(5,1fr);
     justify-items: center;
     text-align: center;
 
@@ -189,6 +189,23 @@ h2 a{
     background: #7A7485; 
     padding: 0;
     border: none;
+}
+
+th {
+    padding: 20px 30px;
+}
+
+td {
+    padding: 30px;
+    border-bottom: solid 1px #AEA8BA;
+}
+
+table {
+    border: solid 1px #AEA8BA;
+    border-radius: 15px;
+    font-size: 20px;
+    font-family: 'Josefin Sans', sans-serif;
+    margin: 0 auto;
 }
 
 

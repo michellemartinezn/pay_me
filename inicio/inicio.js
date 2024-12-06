@@ -57,12 +57,16 @@ async function get_cards(){
             let options = '';
             console.log(movements)
             movements.data.forEach(element => {
-                options = options + `<div class="separar"> 
-                                        <p class="cuenta">${element.description_type}</p>
-                                        <p class="numero-cuenta"> ${element.card_number}</p>
+                let balance = Intl.NumberFormat('es-MX', {style: 'currency', currency: 'MXN'}).format(element.balance);
+                options = options + `<div class="card" id="cards">
+                                        <div class="separar"> 
+                                            <p class="cuenta">${element.description_type}</p>
+                                            <p class="numero-cuenta"> ${element.card_number}</p>
+                                        </div>
+                                        <p class="saldo-cuenta">Saldo actual</p>
+                                        <p class="saldo"> ${balance}</p> 
                                     </div>
-                                    <p class="saldo-cuenta">Saldo actual</p>
-                                    <p class="saldo"> ${element.balance}</p> `;
+                                    <p>`;
             });
             document.getElementById('cards').innerHTML = options;
         }
