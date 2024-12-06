@@ -1,3 +1,7 @@
+import Swal from 'sweetalert2'
+
+const Swal = require('sweetalert2')
+
 function formatCurrency(input) {
     let value = input.value;
     const hasDecimal = value.includes('.');
@@ -86,7 +90,11 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
                 throw new Error(message);
             }
             let data = await response.json();
-            window.alert("Se registro el pago del servicio");
+            Swal.fire({
+                title: "Pago exitoso!",
+                text: "Se ha registrado el pago con exito",
+                icon: "success"
+              });
             //document.getElementById("error").innerHTML = "Se registro el pago del servicio"
         }
     } catch (error) {
