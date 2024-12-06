@@ -1,17 +1,17 @@
 document.getElementById('login').addEventListener('click', async (event) => {
     event.preventDefault(); // Previene que la página se recargue
     try {
-        if(document.getElementById("email").value == "") 
-            throw new Error('Error: Se requiere un correo electrónico')
+        if (document.getElementById("email").value == "")
+            throw new Error('Se requiere un correo electrónico');
 
-        let mailformat =  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        let mailformat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!(document.getElementById("email").value.match(mailformat)))
-            throw new Error('Error: Correo electrónico inválido')
+            throw new Error('Correo electrónico inválido');
 
-        if(document.getElementById('password').value == "") 
-            throw new Error('Error: Se requiere una contraseña')
+        if (document.getElementById('password').value == "")
+            throw new Error('Se requiere una contraseña');
 
-        let apiURL = 'http://' + window.location.hostname + ':3000/login';  
+        let apiURL = 'http://' + window.location.hostname + ':3000/login';
         let response = await fetch(apiURL, {
             method: 'POST',
             headers: {
@@ -22,20 +22,45 @@ document.getElementById('login').addEventListener('click', async (event) => {
                 pass: document.getElementById('password').value
             })
         });
+
         if (!response.ok) {
-            let { message } = await response.json()
+            let { message } = await response.json();
             throw new Error(message);
         }
+
         let token = await response.json();
         if (!token.data)
-            throw new Error("Credenciales incorrectas");
-        sessionStorage.setItem('token', token.data)
+            throw new Error('Credenciales incorrectas');
+
+        sessionStorage.setItem('token', token.data);
+
+        await Swal.fire({
+            icon: 'success',
+            title: 'Inicio de sesión exitoso',
+            text: 'Serás redirigido a la página principal',
+        });
+
         window.location.href = '../cards/cards.html';
     } catch (error) {
-        document.getElementById("error").innerHTML = error.message
+        await Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+        });
     }
 });
 
 document.getElementById('cancel').addEventListener('click', async (event) => {
-    window.location.href = '../home_page/home_page.html';
+    await Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Serás redirigido a tarjetas',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, continuar',
+        cancelButtonText: 'Cancelar',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../home_page/home_page.html';
+        }
+    });
 });

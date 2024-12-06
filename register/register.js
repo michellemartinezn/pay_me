@@ -2,26 +2,26 @@ document.getElementById('register').addEventListener('click', async (event) => {
     event.preventDefault(); // Previene que la página se recargue
 
     try {
-        if(document.getElementById("name").value == "")
-            throw new Error('Error: El nombre es obligatorio')
+        if (document.getElementById("name").value == "")
+            throw new Error('El nombre es obligatorio');
         
-        if(document.getElementById("lastName").value == "")
-            throw new Error('Error: El apellido es olbigatorio')
+        if (document.getElementById("lastName").value == "")
+            throw new Error('El apellido es obligatorio');
 
-        if(document.getElementById("email").value == "") 
-            throw new Error('Error: Se requiere un correo electrónico')
+        if (document.getElementById("email").value == "")
+            throw new Error('Se requiere un correo electrónico');
 
-        let mailformat =  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        let mailformat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!(document.getElementById("email").value.match(mailformat)))
-            throw new Error('Error: Correo electrónico inválido')
+            throw new Error('Correo electrónico inválido');
 
-        if(document.getElementById('password').value == "") 
-            throw new Error('Error: Se requiere una contraseña')
+        if (document.getElementById('password').value == "")
+            throw new Error('Se requiere una contraseña');
 
-        if(document.getElementById("password").value.lenght < 8)
-            throw new Error('Error: La contraseña debe tener al menos 8 caracteres')
+        if (document.getElementById("password").value.length < 8)
+            throw new Error('La contraseña debe tener al menos 8 caracteres');
         
-        let apiURL = 'http://' + window.location.hostname + ':3000/users'
+        let apiURL = 'http://' + window.location.hostname + ':3000/users';
 
         let response = await fetch(apiURL, {
             method: 'POST',
@@ -35,17 +35,39 @@ document.getElementById('register').addEventListener('click', async (event) => {
                 pass: document.getElementById('password').value
             })
         });
+
         if (!response.ok) {
-            let { message } = await response.json()
+            let { message } = await response.json();
             throw new Error(message);
         }
-        let data = await response.json();
+
+        await Swal.fire({
+            icon: 'success',
+            title: 'Registro exitoso',
+            text: 'Serás redirigido a la página de inicio de sesión',
+        });
+
         window.location.href = '../login/login.html';
     } catch (error) {
-        document.getElementById("error").innerHTML = error.message
+        await Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+        });
     }
 });
 
 document.getElementById('cancel').addEventListener('click', async (event) => {
-    window.location.href = '../home_page/home_page.html';
+    await Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Serás redirigido a la página de inicio',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, continuar',
+        cancelButtonText: 'Cancelar',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../home_page/home_page.html';
+        }
+    });
 });

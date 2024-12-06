@@ -26,57 +26,65 @@
             </div>
         </div>
 
-        <div class="left" id="leftPanel">
-            <p class="saludo" id="welcome"> </p>
+        <!-- <div id="leftPanel">
+            <p class="saludo" id="welcome"> </p> -->
 
-        <div class="left">
-            <p class="saludo" id="saludo">Hola, Priscila</p>
+        <div id="leftPanel" class="left">
+            <p class="saludo" id="saludo"></p>
 
-            <div class="container-card">
+            <div id="cardContainer"  class="container-card">
+                
+
         
                 <div class="card" id="cards">
-                    <div class="separar"> 
+                    <!-- <div class="separar"> 
                         <p class="cuenta" id="accountLabel">Cuenta</p>
                         <p class="numero-cuenta" id="accountNumber">---  </p>
                     </div>
 
                     <p class="saldo-cuenta" id="balanceLabel">Saldo actual</p>
-                    <p class="saldo" id="currentBalance"></p> 
+                    <p class="saldo" id="currentBalance"></p>  -->
                 </div>
+              
+                
 
             </div>
 
         </div>
 
         <div class="right">
+            <div class="conteinerh">
+            <p class="historial" > Historial</p>
+            </div>
 
+                    <table class="table"> 
 
-            <table class="table"> 
+                        <thead class="encabezado">
 
-                <thead class="encabezado">
+                            <th>Tipo</th>
+                            <th>Fecha</th>
+                            <th>Mi cuenta</th>
+                            <th>Monto</th>
+                            <th>Concepto</th>
+                        </thead>
 
-                    <th>Tipo</th>
-                    <th>Fecha</th>
-                    <th>Mi cuenta</th>
-                    <th>Monto</th>
-                    <th>Concepto</th>
-                </thead>
+                        <tbody id="movements">
 
-                <tbody id="movements">
+                            <tr id="transaction4">
+                                <td id="type4"></td>
+                                <td id="account4"></td>
+                                <td id="destination4"></td>
+                                <td id="concept4"></td>
+                            </tr> 
+                        </tbody>
 
-                    <tr id="transaction4">
-                        <td id="type4"></td>
-                        <td id="account4"></td>
-                        <td id="destination4"></td>
-                        <td id="concept4"></td>
-                    </tr>
-                </tbody>
-
-            </table>
+                    </table>
+             
 
         </div>
         
-      </div>
-    <script src="inicio.js"></script>
+    </div>
+
+     <script src="inicio.js"></script>
 </body>
 </html>
