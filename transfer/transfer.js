@@ -17,7 +17,7 @@ async function get_user_cards() {
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = 'http://' + window.location.hostname + ':3000/cards'
+            let apiURL = sessionStorage.getItem('apiURL') + 'cards';
             let response = await fetch(apiURL, {
                 method: 'GET',
                 headers: {
@@ -47,7 +47,7 @@ async function get_recipient_cards() {
         let email = document.getElementById('email').value;
         let mailformat =  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
         if(email.length > 0 && email.match(mailformat)){
-            let apiURL = 'http://' + window.location.hostname + ':3000/cards/' + email;
+            let apiURL = sessionStorage.getItem('apiURL') + 'cards/' + email;
             let response = await fetch(apiURL, {
                 method: 'GET',
                 headers: {
@@ -87,7 +87,7 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
             if(document.getElementById('concept').value.length === 0)
                 throw new Error('Error: Se debe indicar un concepto')
 
-            let apiURL = 'http://' + window.location.hostname + ':3000/transaction'
+            let apiURL = sessionStorage.getItem('apiURL') + 'transaction'
             let response = await fetch(apiURL, {
                 method: 'POST',
                 headers: {
@@ -119,7 +119,6 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
 
 document.getElementById('email').addEventListener('blur', async (event) => {
     event.preventDefault(); 
-    console.log('Hola');
     get_recipient_cards();
 })
 

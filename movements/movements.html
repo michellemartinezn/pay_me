@@ -16,6 +16,21 @@
     
 <body>
 
+<<<<<<< HEAD
+    <div class="container">
+        <div class="header">
+            <div class="container-header"></div>
+    
+            <img src="../pm2.png" alt="pm" class="img-pm">
+    
+            <div class="menu"> 
+                <p><a href="../inicio/inicio.html" class="noline">Inicio</a></p>
+                <p class="active"  style="color: #00085A;"> <strong>Movimientos</strong> </p>
+                <p><a href="../transfer/transfer.html" class="noline">Transferencias</a></p>
+                <p><a href="../cards/cards.html" class="noline">Tarjetas</a></p>
+                <p><a href="../payments/payments.html" class="noline">Realizar pagos</a></p>
+                <p>Cerrar Sesión</p>
+=======
     <div class="menu">
         <h2><a href="../inicio/inicio.html">Inicio</a></h2>
         <h2><a href="../movements/movements.html">Movimientos</a></h2>
@@ -33,45 +48,47 @@
                       Fecha
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Mes</a></li>
-                      <li><a class="dropdown-item" href="#">Año</a></li>
+                      <li><input type="date" title="date" id="date" onblur="set_selected_date()"></li>
                     </ul>
                   </div>
+                  <span id="selected_date"></span>
+>>>>>>> 08b820e553e92b4ca1173646ef1b380cfaf51ee0
             </div>
 
             <div class="type">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Tipo
+                        Tipo
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Transferencia</a></li>
-                      <li><a class="dropdown-item" href="#">Pago</a></li>
+                        <li><a class="dropdown-item" href="#" onblur="set_selected_type(event)">Transferencia</a></li>
+                        <li><a class="dropdown-item" href="#" onblur="set_selected_type(event)">Pago</a></li>
                     </ul>
-                  </div>
+                </div>
+                <span id="selected_type"></span>
             </div>
+            
+            
 
             <div class="filter-button">
-                <button>Filtrar</button>
+                <button onclick="get_movements()">Filtrar</button>
             </div>
-
         </div>
-
     </div>
 
-    <table class="movements-table">
-        <tr class="movements-table-fields">
+    <table  class="movements-table">
+        <thead>
+            <th>Movimiento</th>
             <th>Fecha</th>
+            <th>Tarjeta</th>
             <th>Monto</th>
-            <th>Tipo</th>
-            <th>Descripción</th>
-        </tr>
+            <th>Concepto</th>
+        </thead>
+        <tbody id="movements">
 
-        <tr class="grey-line"></tr>
-        
+        </tbody>
+
     </table>
-
-
     </div>
 
     <script src="movements.js"></script>

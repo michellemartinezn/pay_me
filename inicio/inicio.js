@@ -4,7 +4,7 @@ async function get_movements(){
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = 'http://' + window.location.hostname + ':3000/movements'
+            let apiURL = sessionStorage.getItem('apiURL') + 'movements'
             let response = await fetch(apiURL, {
                 method: 'GET',
                 headers: {
@@ -77,7 +77,7 @@ async function get_cards() {
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = 'http://' + window.location.hostname + ':3000/cards'
+            let apiURL = sessionStorage.getItem('apiURL') + 'cards'
             let response = await fetch(apiURL, {
                 method: 'GET',
                 headers: {
@@ -119,7 +119,7 @@ async function GetCurrentUser() {
         if (token == null)
             window.location.href = '../login/login.html'; 
         else {
-            let apiURL = 'http://' + window.location.hostname + ':3000/user'
+            let apiURL = sessionStorage.getItem('apiURL') + 'user'
             let response = await fetch(apiURL, {
                 method: 'GET',
                 headers: {
