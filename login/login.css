@@ -4,16 +4,19 @@ body {
     margin: 0; 
     display: flex; 
     justify-content: flex-end; 
+   
 }
 
 .container {
     width: 60%;
-    height: 100%;
+    /* height: 100%; */
+    height: 100vh;
     background-color: white; 
     display: flex; 
     justify-content: center; 
     align-items: center;
     flex-direction: column;
+    
 }
 
 
@@ -37,7 +40,7 @@ body {
 }
 
 .inputs{
-    /*background-color: rgb(194, 108, 108); /*l */
+    /*background-color: rgb(194, 108, 108); /*l*/
     width: 60%;
     height: 280px;
     
@@ -124,6 +127,7 @@ body {
  @media (max-width: 1024px) {
     .conteiner {
         width: 60%;
+        height: 100vh;
     }
     .inputs {
         width: 60%;
@@ -217,8 +221,9 @@ body {
 
     
     .conteiner {
-        width: 100%;
-        height: 70%; 
+        width: 60%;
+        /* height: 70%;  */
+        height: 100vh;
         background-color: white;
         display: flex;
         flex-direction: column;
@@ -261,4 +266,3 @@ body {
 }
  
 
- 
