@@ -24,6 +24,7 @@ body, html {
     display: flex;
     justify-content: center;
     gap: 40px;
+    background-color: #122cf0;  
 }
 
 /* Menu */
@@ -43,6 +44,7 @@ body, html {
     display: inline-block;
     padding-bottom: 10px;
     margin-right: 57px; 
+    cursor: pointer;
     /* background-color: #122cf0;  */
 }
 
@@ -66,21 +68,34 @@ body, html {
 .left {
     grid-area: left;
     padding: 20px;
-     background-color: #b3318e; 
+    /* background-color: #b3318e;    */
      overflow-y: auto; 
     height: 100vh; 
+    min-height: 400px;
 } 
 
 .right {
     grid-area: right;
-    /* background-color: #8b4444;   */
+     /* background-color: #8b4444;   */
     padding: 20px;
 
     display: flex;
-       
+    min-height: 400px; 
     align-items: top; 
     flex-direction: column;
     
+
+}
+
+.logOut{
+    border: 2px solid #7A7485;
+    border-radius: 30px;
+    background-color: #7A7485;
+    color: white;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 20px;
+    cursor: pointer;
 
 }
 
@@ -89,7 +104,7 @@ body, html {
     font-weight: bold;
     font-size: 40px;
     text-align: left;
-    margin-left: 32%;
+    margin-left: 22%;
     margin-top: -10px;
     
 }
@@ -180,7 +195,7 @@ td {
     display: flex;
     flex-wrap: wrap; 
     gap: 20px; 
-    height: 60vh;  
+    height: 61vh;  
     overflow-y: auto; 
     scrollbar-width: none; 
 }
@@ -195,98 +210,64 @@ td {
             "right";
     }
 
-    .header {
-        font-size: 18px;
-        gap: 15px; 
-        
-        
+    .left, .right {
+        height: auto; 
+        padding: 10px; 
+    }
+
+    .left {
+        /* background-color: #b3318e; */
+    }
+
+    .right {
+        /* background-color: #8b4444; */
     }
 
     .saludo {
-        font-size: 35px; 
-        margin-left: 10%;
+        font-size: 28px;
+        margin-left: 5%;
         text-align: center;
     }
-
-    .card {
-        width: 450px; 
-        height: 200px;
-    }
-
-    .saldo {
-        font-size: 40px; 
-    }
-
-    table {
-        font-size: 16px; 
-        width: 90%; 
-    }
-
-    .img-pm {
-        width: 50px;
-        height: 40px;
-    }
-    .menu p {
-        margin-right: 20px; 
-        font-size: 20px;
-    }
 }
-
-
-
-
 
 @media (max-width: 768px) {
     .container {
         display: flex;
         flex-direction: column; 
-        gap: 20px; 
+        gap: 15px; 
     }
 
-    .header {
-        flex-direction: column;
-        font-size: 18px;
-        gap: 0px;
-        padding: 10px;
-        
-        
+    .left, .right {
+        padding: 8px; 
     }
 
-    .menu p {
-        margin-right: 20px; 
-        font-size: 20px;
+    .left {
+        /* background-color: #b3318e; */
+        order: 1; 
+    }
+
+    .right {
+        /* background-color: #8b4444; */
+        order: 2; 
     }
 
     .saludo {
-        font-size: 30px;
-        margin-left: 5%;
+        font-size: 24px;
+        margin-left: 0;
         text-align: center;
-       
     }
 
     .card {
-        width: 350px; 
-        height: 150px;
-        padding: 20px;
+        width: 100%; 
+        height: auto;
     }
 
     .saldo {
-        font-size: 30px;
-       
+        font-size: 24px;
     }
 
     table {
-        font-size: 14px; 
-        width: 80%; 
-    }
-
-    th, td {
-        padding: 10px; 
-    }
-
-    .img-pm {
-        width: 40px;
-        height: 30px;
-        margin-top: 20px;
+        font-size: 12px; 
+        width: 100%; 
     }
 }

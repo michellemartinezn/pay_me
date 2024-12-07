@@ -59,12 +59,14 @@ body {
     right: 50px;
     text-align: right;
     top: 200px;
+    /* background-color: blue; */
 }
 
 .text {
     font-family: 'Inter', sans-serif;
     font-weight: bold;
-    font-size: 80px;
+    /* font-size: 80px; */
+    font-size: 500%;
     text-align: right;
     margin: 0;
 }
@@ -79,7 +81,8 @@ body {
     .text {
         font-family: 'Inter', sans-serif;
         font-weight: bold;
-        font-size: 70px;
+        /* font-size: 70px; */
+        font-size: 400%;
         text-align: right;
         margin: 0;
     }
@@ -108,7 +111,8 @@ body {
     .text {
         font-family: 'Inter', sans-serif;
         font-weight: bold;
-        font-size: 73px;
+        /* font-size: 73px; */
+        font-size: 300%;
         text-align: right;
         margin: 0;
     }
@@ -121,7 +125,8 @@ body {
 
 @media (max-width: 600px) {
     .text {
-        font-size: 42px; 
+        /* font-size: 42px;  */
+        font-size: 300%;
         line-height: 1.2; /
     }
 

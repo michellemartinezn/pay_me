@@ -50,24 +50,16 @@ async function get_user_cards() {
 async function get_services(){
     let apiURL = sessionStorage.getItem('apiURL') + 'services';
     let response = await fetch(apiURL);
-    try{
-        if (!response.ok) {
-            const { message } = await response.json();
-            throw new Error(message);
-        }
-        let Services = await response.json();
-        let options = '';
-        Services.data.forEach(element => {
-            options = options + `<Option value="${element.id}">${element.service_description}</option>`;
-        });
-        document.getElementById('service').innerHTML = options;
-    }catch (error){
-        await Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: error.message,
-        });
+    if (!response.ok) {
+        const { message } = await response.json();
+        throw new Error(message);
     }
+    let Services = await response.json();
+    let options = '';
+    Services.data.forEach(element => {
+        options = options + `<Option value="${element.id}">${element.service_description}</option>`;
+    });
+    document.getElementById('service').innerHTML = options;
 }
 
 document.getElementById('pay-button').addEventListener('click', async (event) => {
@@ -81,10 +73,8 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
             let cb_service = document.getElementById('service');
             if(!document.getElementById('amount').value)
                 throw new Error('Se debe indicar un monto')
-
-            let amount = document.getElementById('amount').value.replace("$", "").replace(/,/g, "")
             let concept = cb_service.options[cb_service.selectedIndex].text;
-            console.log(amount)
+            let amount = document.getElementById('amount').value.replace("$", "").replace(/,/g, "")
             if (parseInt(amount) == 0)
                 throw new Error('El monto deber ser mayor a $0.00')
  

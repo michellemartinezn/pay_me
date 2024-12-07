@@ -27,13 +27,14 @@
                 <p class="active"  style="color: #00085A;"> <strong>Transferencias</strong> </p>
                 <p><a href="../cards/cards.html" class="noline">Tarjetas</a></p>
                 <p><a href="../payments/payments.html" class="noline">Realizar pagos</a></p>
-                <p>Cerrar Sesión</p>
+                <p class="logOut" id="logout">Cerrar Sesión</p>
             </div>
             
 
             
 
         </div>
+
         <h1 class="title">Transferir</h1>
 
         <div class="left">
@@ -45,27 +46,31 @@
                 </select>
             </div>
     
-            <div class="receiver-email">
+            <div class="input-control">
                 <h2>Destinatario</h2>
                 <input type="email" id="email" placeholder="Correo electrónico" class="borde">
+                <div class="error"></div>
             </div>
-            <div class="receiver-card">
+            <div class="input-control">
                 <h2>Cuenta destinatario</h2>
                 <select class="border" id="receiver-card">
                 </select>
+                <div class="error"></div>
             </div>
 
         </div>
 
         <div class="right">
-            <div class="amount">
+            <div class="input-control">
                 <h2>Monto</h2>
                 <input type="text" id="amount" placeholder="$0.00" maxlength="15" oninput="formatCurrency(this)" class="borde">
+                <div class="error"></div>
             </div>
     
-            <div class="concept">
+            <div class="input-control">
                 <h2>Concepto</h2>
                 <input type="text" id="concept" class="borde">
+                <div class="error"></div>
             </div>
             <button class="accept-button" id="pay-button">Aceptar</button>
         </div>
@@ -73,6 +78,7 @@
         
 
     </div>
+    <script src="../logout.js"></script>
     <script src="transfer.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
