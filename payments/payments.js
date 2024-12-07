@@ -50,16 +50,24 @@ async function get_user_cards() {
 async function get_services(){
     let apiURL = sessionStorage.getItem('apiURL') + 'services';
     let response = await fetch(apiURL);
-    if (!response.ok) {
-        const { message } = await response.json();
-        throw new Error(message);
+    try{
+        if (!response.ok) {
+            const { message } = await response.json();
+            throw new Error(message);
+        }
+        let Services = await response.json();
+        let options = '';
+        Services.data.forEach(element => {
+            options = options + `<Option value="${element.id}">${element.service_description}</option>`;
+        });
+        document.getElementById('service').innerHTML = options;
+    }catch (error){
+        await Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+        });
     }
-    let Services = await response.json();
-    let options = '';
-    Services.data.forEach(element => {
-        options = options + `<Option value="${element.id}">${element.service_description}</option>`;
-    });
-    document.getElementById('service').innerHTML = options;
 }
 
 document.getElementById('pay-button').addEventListener('click', async (event) => {

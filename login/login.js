@@ -53,7 +53,7 @@ document.getElementById('login').addEventListener('click', async (event) => {
 document.getElementById('cancel').addEventListener('click', async (event) => {
     await Swal.fire({
         title: '¿Estás seguro?',
-        text: 'Serás redirigido a tarjetas',
+        text: 'Serás redirigido a la página de inicio',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Sí, continuar',

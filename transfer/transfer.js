@@ -94,6 +94,12 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
                 throw new Error('Error: No existe tarjeta destino')
             if(document.getElementById('concept').value.length === 0)
                 throw new Error('Error: Se debe indicar un concepto')
+            if(!document.getElementById('amount').value)
+                throw new Error('Se debe indicar un monto')
+
+            let amount = document.getElementById('amount').value.replace("$", "").replace(/,/g, "")
+            if (parseInt(amount) == 0)
+                throw new Error('El monto deber ser mayor a $0.00')
 
             let apiURL = sessionStorage.getItem('apiURL') + 'transaction'
             let response = await fetch(apiURL, {
@@ -106,7 +112,7 @@ document.getElementById('pay-button').addEventListener('click', async (event) =>
                 body: JSON.stringify({
                     source_card: document.getElementById('card').value,
                     recipient_id: document.getElementById('receiver-card').value,
-                    amount: document.getElementById('amount').value.replace("$", "").replace(/,/g, ""),
+                    amount: amount,
                     transaction_type: 1,
                     concept: document.getElementById('concept').value
                 })
