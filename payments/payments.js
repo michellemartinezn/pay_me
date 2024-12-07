@@ -15,9 +15,9 @@ function formatCurrency(input) {
 async function get_user_cards() {
     try {
         let token = sessionStorage.getItem('token');
-        if (token == null)
+        /*if (token == null)
             window.location.href = '../login/login.html'; 
-        else {
+        else {*/
             let apiURL = sessionStorage.getItem('apiURL') + 'cards'
             let response = await fetch(apiURL, {
                 method: 'GET',
@@ -36,14 +36,9 @@ async function get_user_cards() {
                 options = options + `<Option value="${element.card_id}">${element.card_number}</option>`;
             });
             document.getElementById('user_cards').innerHTML = options;
-
-        }
+        //}
     } catch (error) {
-        await Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: error.message,
-        });
+        console.error(error);
     }
 }
 
@@ -65,54 +60,86 @@ async function get_services(){
 document.getElementById('pay-button').addEventListener('click', async (event) => {
     event.preventDefault(); 
     let token = sessionStorage.getItem('token');
-    try{
-        if (token == null)
+
+    try {
+        if (token == null) {
             window.location.href = '../login/login.html'; 
-        else {
-            let apiURL = sessionStorage.getItem('apiURL') + 'transaction'
+        } else {
+            let apiURL = sessionStorage.getItem('apiURL')+'transaction'
             let cb_service = document.getElementById('service');
-            if(!document.getElementById('amount').value)
-                throw new Error('Se debe indicar un monto')
-
-            let amount = document.getElementById('amount').value.replace("$", "").replace(/,/g, "")
             let concept = cb_service.options[cb_service.selectedIndex].text;
-            console.log(amount)
-            if (parseInt(amount) == 0)
-                throw new Error('El monto deber ser mayor a $0.00')
- 
-            let response = await fetch(apiURL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authorization': token
+            let amount = document.getElementById('amount').value.replace("$", "").replace(/,/g, "");
+            let amountPayment = parseFloat(amount);
 
-                },
-                body: JSON.stringify({
-                    source_card: document.getElementById('user_cards').value,
-                    recipient_id: document.getElementById('service').value,
-                    amount: amount,
-                    transaction_type: 2,
-                    concept: concept
-                })
-            });
-            if (!response.ok) {
-                let { message } = await response.json()
-                throw new Error(message);
+            if(isNaN(amountPayment)||amountPayment==0){
+                Swal.fire({
+                    title: "Error",
+                    text: "El monto debe ser mayor a cero.",
+                    icon: "error"
+                });
+                return;
             }
-            let data = await response.json();
+
             Swal.fire({
-                title: "Pago exitoso!",
-                text: "Se ha registrado el pago con exito",
-                icon: "success"
-              });
-            //document.getElementById("error").innerHTML = "Se registro el pago del servicio"
+                title: "Confirmar",
+                text: "¿Estás seguro que quieres realizar el pago?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Confirmar",
+                cancelButtonText: "Cancelar"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    let response = await fetch(apiURL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': token
+                        },
+                        body: JSON.stringify({
+                            source_card: document.getElementById('user_cards').value,
+                            recipient_id: document.getElementById('service').value,
+                            amount: document.getElementById('amount').value.replace("$", "").replace(/,/g, ""),
+                            transaction_type: 2,
+                            concept: concept
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const { message } = await response.json();
+                        console.log(message);
+                        if (message === 'Error: Saldo insuficiente') {
+                            Swal.fire({
+                                title: "Error",
+                                text: "Saldo insuficiente en la tarjeta.",
+                                icon: "error"
+                            });
+                        } else {
+                            throw new Error(message); 
+                        }
+                    }else {
+
+                        let data = await response.json();
+    
+                        Swal.fire({
+                            title: "¡Pago exitoso!",
+                            text: "Tu pago ha sido procesado",
+                            icon: "success"
+                        });
+                    }
+
+                } else {
+                    Swal.fire({
+                        title: "Pago cancelado",
+                        text: "La operación ha sido cancelada",
+                        icon: "info"
+                    });
+                }
+            });
         }
     } catch (error) {
-        await Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: error.message,
-        });
+        console.error(error);
     }
 });
 

@@ -1,19 +1,29 @@
+const cardNumber = document.getElementById('card');
+const expirationDate = document.getElementById("expiration-date");
+const cvv = document.getElementById("cvv");
+
+
+
+
+
+
 document.getElementById('addCard').addEventListener('click', async (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
+
 
     try {
-        if(document.getElementById("card").value.length < 19)
-            throw new Error('Error: El número de tarjeta no es válido')
+       
+        const isValid = validateInputs();
+        if (!isValid) return;
 
-        if(document.getElementById("expiration-date").value.length < 5) 
-            throw new Error('Error: La fecha de expiración no es válida')
 
-        if(document.getElementById("cvv").value.length < 3)
-            throw new Error('Error: CVV no válido')
 
-        let apiURL = sessionStorage.getItem('apiURL') + 'cards'
+
+        let apiURL = 'http://' + window.location.hostname + ':3000/cards'
         const token = sessionStorage.getItem('token');
-    
+        let prueba =  document.getElementById('balance').value.replace("$", "").replace(/,/g, "");
+        console.log(prueba);
+   
         let response = await fetch(apiURL, {
             method: 'POST',
             headers: {
@@ -33,23 +43,26 @@ document.getElementById('addCard').addEventListener('click', async (event) => {
             throw new Error(message);
         }
         let data = await response.json();
+
+
         Swal.fire({
-            title: "Tarjeta registrada!",
-            text: "Se ha registrado exitosamente la tarjeta",
+            title: "¡Tarjeta añadida!",
+            text: "Tu tarjeta ha sido añadida con exito",
             icon: "success"
-          });
-} catch (error) {
-        await Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: error.message,
         });
+
+
+    } catch (error) {
+        document.getElementById("error").innerHTML = error.message;
+        handleError(error.message);
     }
 });
 
 
+
+
 async function get_card_type(){
-    let apiURL = sessionStorage.getItem('apiURL') + 'cardTypes';
+    let apiURL = 'http://' + window.location.hostname + ':3000/cardTypes';
     let response = await fetch(apiURL);
     if (!response.ok) {
         const { message } = await response.json();
@@ -58,10 +71,11 @@ async function get_card_type(){
     let Cards = await response.json();
     let options = '';
     Cards.data.forEach(element => {
-        options = options + `<Option value="${element.id}">${element.description_type}</option>`;
+        options = options + <Option value="${element.id}">${element.description_type}</option>;
     });
     document.getElementById('card_type').innerHTML = options;
 }
+
 
 function formatCardNumber(input) {
     let value = input.value.replace(/\D/g, '');
@@ -70,23 +84,26 @@ function formatCardNumber(input) {
     input.value = formatted;
 }
 
+
 function formatExpiryDate(input) {
     let value = input.value.replace(/\D/g, '');
     if (value.length > 2) {
         let month = value.slice(0, 2);
         let year = value.slice(2, 4);
-        if (parseInt(month, 10) > 12) 
-            month = '12';
+        if(parseInt(month,10)>12)
+            month='12';
         input.value = month + '/' + year;
     } else {
         input.value = value;
     }
 }
 
+
 function formatCVV(input) {
     let value = input.value.replace(/\D/g, '');
     input.value = value;
 }
+
 
 function formatCurrency(input) {
     let value = input.value;
@@ -98,14 +115,99 @@ function formatCurrency(input) {
     if (integerPart === '') integerPart = '0';
     integerPart = parseInt(integerPart, 10).toLocaleString('es-MX');
     if (decimalPart) decimalPart = decimalPart.slice(0, 2);
-    input.value = `$${integerPart}${decimalPart !== undefined ? '.' + decimalPart : hasDecimal ? '.' : ''}`;
+    input.value = $${integerPart}${decimalPart !== undefined ? '.' + decimalPart : hasDecimal ? '.' : ''};
 }
+
 
 function getToken(){
     if(!sessionStorage.getItem('token'))
         window.location.href = '../login/login.html'
 }
 
+
+const setError = (element, message) =>{
+    const inputControl = element.parentElement;
+    const errorDisplay = inputControl.querySelector('.error');
+    errorDisplay.innerText = message;
+    inputControl.classList.add('error');
+
+
+}
+
+
+const clearError = (element) => {
+    const inputControl = element.parentElement;
+    inputControl.classList.remove('error');
+    const errorDisplay = inputControl.querySelector('.error');
+    errorDisplay.innerText = '';
+};
+
+
+const validateInputs = () => {
+    let isValid=true;
+
+
+    let expirationDateValue = expirationDate.value.replace(/\D/g, '');
+
+
+    if (expirationDateValue.length === 4) {
+        let month = expirationDateValue.slice(0, 2);
+        let year = expirationDateValue.slice(2, 4);
+
+
+        let expirationDateFull = new Date(20${year}-${month}-01);
+        let currentDate = new Date();
+        currentDate.setDate(1);
+
+
+        if (expirationDateFull <= currentDate) {
+            setError(expirationDate, 'La fecha de vencimiento debe ser posterior a la fecha actual');
+            isValid = false;
+        } else {
+            clearError(expirationDate);
+        }
+    } else {
+        setError(expirationDate, 'La fecha de vencimiento no es válida');
+        isValid = false;
+    }
+   
+
+
+
+
+
+
+    if(cardNumber.value.length < 19){
+        setError(cardNumber, 'El número de tarjeta no es válido');
+        isValid = false;
+    }else{
+        clearError(cardNumber);
+    }
+
+
+
+
+    if(cvv.value.length < 3){
+        setError(cvv, 'CVV no válido');
+        isValid = false;
+    }else{
+        clearError(cvv);
+    }
+
+
+    return isValid;
+};
+
+
+
+
+
+
+
+
+
+
 getToken();
+
 
 get_card_type();

@@ -11,9 +11,9 @@ function set_selected_type(event) {
 async function get_movements(){
     try {
         let token = sessionStorage.getItem('token');
-        if (token == null)
+        /*if (token == null)
             window.location.href = '../login/login.html'; 
-        else {
+        else {*/
             let apiURL = sessionStorage.getItem('apiURL') + 'movements'
             let response = await fetch(apiURL, {
                 method: 'POST',
@@ -42,7 +42,7 @@ async function get_movements(){
                                     </tr>`;
             });
             document.getElementById('movements').innerHTML = options;
-        }
+       // }
     } catch (error) {
         await Swal.fire({
             icon: 'error',

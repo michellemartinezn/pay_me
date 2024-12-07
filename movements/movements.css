@@ -3,6 +3,7 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
+    min-width: 800px;
 }
 
 .container {
@@ -11,10 +12,10 @@ body, html {
     grid-template-columns: 1fr ;
     grid-template-areas: 
         "header"
-        "title"
         "filter-rectangle"
         "movements-table";
     height: 100vh;
+    justify-self: center;
 }
 
 
@@ -22,6 +23,7 @@ body, html {
 /* Header */
 .header {
     grid-area: header;
+    margin-top: ;
     text-align: center;
     padding: 15px;
     font-size: 20px;
@@ -32,7 +34,6 @@ body, html {
 
 /* Menu */
 .menu {
-    grid-area: header;
     text-align: center;
     padding: 22px;
     font-size: 23px;
@@ -47,6 +48,7 @@ body, html {
     display: inline-block;
     padding-bottom: 10px;
     margin-right: 57px; 
+    cursor: pointer;
     /* background-color: #122cf0;  */
 }
 
@@ -117,15 +119,18 @@ td {
 
 
 
-.log-out{
+.logOut{
+    border: 2px solid #7A7485;
     border-radius: 30px;
-    border: 1px solid #7A7485;
-    display: outside; 
-    margin: 10px 0;
-    padding: 10px;
-    width: 95%;
-    height: 25px;
+    background-color: #7A7485;
+    color: white;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 20px;
+    cursor: pointer;
+
 }
+
 h2{
     font-family: "Josefin Sans";
     font-size: clamp(.2rem, 3vw, 1.4rem);
@@ -139,12 +144,13 @@ h2{
 
 
 .filter-rectangle{
+    display: flex;
     border-radius: 11px;
     background: #AEA8BA;
-    width: 100%;
+    width: 90%;
     height: 80px;
-    margin-top: 30px;
-    justify-items: center;
+    margin-top: 20px;
+    justify-self: center;
     align-content: center;
 }
 
@@ -212,24 +218,16 @@ h2{
 
 
 .movements-table{
-    grid-column: 2/8;
-    grid-row: 3/12;
-    width: 100%;
+    
+    width: 90%;
     height: 611px;
     flex-shrink: 0;
     border-radius: 30px;
-    margin-top: 30px;
+    margin-top: 20px;
     border: 2px solid #AEA8BA;
 
 }
 
-.movements-table-fields{
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-    justify-items: center;
-    text-align: center;
-
-}
 
 .movements-table-fields th{
     margin-top: 20px;
