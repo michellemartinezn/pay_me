@@ -4,66 +4,69 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Pagos</title>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <link rel="stylesheet" href="payments.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
-
+        
     </head>
     
-<body>
-    <div class="container">
-        <div class="header">
-            <div class="container-header"></div>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="container-header"></div>
+                
+                <img src="../pm2.png" alt="pm" class="img-pm">
+                
+                <div class="menu"> 
+                    
+                    <p><a href="../inicio/inicio.html" class="noline">Inicio</a></p>
+                    <p><a href="../movements/movements.html" class="noline">Movimientos</a> </p>
+                    <p><a href="../transfer/transfer.html" class="noline">Transferencias</a></p>
+                    <p><a href="../cards/cards.html" class="noline">Tarjetas</a></p>
+                    <p class="active"  style="color: #00085A;"> <strong>Realizar pagos</strong> </p>
+                    <p>Cerrar Sesión</p>
+                </div>
+                
+                
+                
 
-            <img src="../pm2.png" alt="pm" class="img-pm">
-
-            <div class="menu"> 
-
-                <p><a href="../inicio/inicio.html" class="noline">Inicio</a></p>
-                <p><a href="../movements/movements.html" class="noline">Movimientos</a> </p>
-                <p><a href="../transfer/transfer.html" class="noline">Transferencias</a></p>
-                <p><a href="../cards/cards.html" class="noline">Tarjetas</a></p>
-                <p class="active"  style="color: #00085A;"> <strong>Realizar pagos</strong> </p>
-                <p>Cerrar Sesión</p>
             </div>
-            
-
-            
-
-        </div>
 
         <h1 class="title">Realizar pagos</h1>
-
+        
         <div class="left">
-                <div class="method">
-                    <h2>Método de pago</h2>
-                    <select class="border" id="user_cards">
-                    </select>
-                </div>
-    
-                <div class="service">
-                    <h2>Servicio</h2>
-                    <select class="border" id="service">
-                    </select>
-                </div>
-    
-                <div class="amount">
-                    <h2>Monto</h2>
-                    <input type="text" id="amount" placeholder="$0.00" maxlength="15" oninput="formatCurrency(this)" class="borde">
-                </div>
-        </div>
-
-        <div class="right">
-            <button class="accept-button" id="pay-button">Pagar</button>
-        </div>
-
+            <div class="method">
+                <h2>Método de pago</h2>
+                <select class="border" id="user_cards">
+                </select>
+            </div>
+            
+            <div class="services">
+                <h2>Servicio</h2>
+                <select class="border" id="service">
+                </select>
+            </div>
+            
+            <div class="amount">
+                <h2>Monto</h2>
+                <input type="text" id="amount" placeholder="$0.00" maxlength="15" oninput="formatCurrency(this)" class="borde">
+            </div>
             <div>
                 <p class="error" id="error"></p>
             </div>
+        </div>
+        
+        <div class="right">
+            <button class="accept-button" id="pay-button">Pagar</button>
+        </div>
+        
     </div>
-
+    
     <script src="payments.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

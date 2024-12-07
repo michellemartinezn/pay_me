@@ -32,7 +32,6 @@ async function get_movements(){
             }
             let movements = await response.json();
             let options = '';
-            console.log(movements)
             movements.data.forEach(element => {
                 options = options + `<tr>
                                         <td>${element.description_type}</td>
@@ -45,7 +44,11 @@ async function get_movements(){
             document.getElementById('movements').innerHTML = options;
         }
     } catch (error) {
-        console.error(error);
+        await Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+        });
     }
 }
 

@@ -149,7 +149,7 @@ select{
     cursor: pointer;
     
     height: 50px; 
-    width: 50%;
+    width:60%;
     justify-self:right;
     align-self: center;
 
@@ -223,4 +223,9 @@ select{
         gap: 15px;      
     }
 
+}
+
+.error{
+    color: #BE0000;
+    size: 14px;
 }

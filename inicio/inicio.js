@@ -36,13 +36,22 @@ async function get_movements(){
     }
 }
 
+<<<<<<< HEAD
+async function get_cards(){
+=======
 async function get_cards() {
+>>>>>>> cb243daaf15edf03f3caf0ba1e9a173b892dbe97
     try {
         let token = sessionStorage.getItem('token');
         if (token == null) {
             window.location.href = '../login/login.html'; 
+<<<<<<< HEAD
+        else {
+            let apiURL = 'http://' + window.location.hostname + ':3000/cards'
+=======
         } else {
-            let apiURL = 'http://' + window.location.hostname + ':3000/cards';
+            let apiURL = sessionStorage.getItem('apiURL') + 'cards';
+>>>>>>> cb243daaf15edf03f3caf0ba1e9a173b892dbe97
             let response = await fetch(apiURL, {
                 method: 'GET',
                 headers: {
@@ -55,33 +64,40 @@ async function get_cards() {
                 const { message } = await response.json();
                 throw new Error(message);
             }
+<<<<<<< HEAD
+            let movements = await response.json();
+            let options = '';
+            console.log(movements)
+            movements.data.forEach(element => {
+                options = options + `<div class="separar"> 
+                                        <p class="cuenta">${element.description_type}</p>
+                                        <p class="numero-cuenta"> ${element.card_number}</p>
+                                    </div>
+                                    <p class="saldo-cuenta">Saldo actual</p>
+                                    <p class="saldo"> ${element.balance}</p> `;
+            });
+            document.getElementById('cards').innerHTML = options;
+=======
 
             let cardsData = await response.json();
             let container = document.getElementById('cardContainer'); 
-
             
             container.innerHTML = '';
-
-            console.log(cardsData);
-
             cardsData.data.forEach(card => {
-                
+                let balance = Intl.NumberFormat('es-MX', {style: 'currency', currency: 'MXN'}).format(card.balance);
                 let cardElement = document.createElement('div');
                 cardElement.className = 'card';
-
-               
                 cardElement.innerHTML = `
                     <div class="separar"> 
                         <p class="cuenta">${card.description_type}</p>
                         <p class="numero-cuenta">${card.card_number}</p>
                     </div>
                     <p class="saldo-cuenta">Saldo actual</p>
-                    <p class="saldo">${card.balance}</p>
+                    <p class="saldo">${balance}</p>
                 `;
-
-                
                 container.appendChild(cardElement);
             });
+>>>>>>> cb243daaf15edf03f3caf0ba1e9a173b892dbe97
         }
     } catch (error) {
         console.error(error);

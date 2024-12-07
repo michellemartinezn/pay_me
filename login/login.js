@@ -11,7 +11,7 @@ document.getElementById('login').addEventListener('click', async (event) => {
         if (document.getElementById('password').value == "")
             throw new Error('Se requiere una contraseña');
 
-        let apiURL = 'http://' + window.location.hostname + ':3000/login';
+        let apiURL = sessionStorage.getItem('apiURL') + 'login';
         let response = await fetch(apiURL, {
             method: 'POST',
             headers: {
@@ -40,7 +40,7 @@ document.getElementById('login').addEventListener('click', async (event) => {
             text: 'Serás redirigido a la página principal',
         });
 
-        window.location.href = '../cards/cards.html';
+        window.location.href = '../inicio/inicio.html';
     } catch (error) {
         await Swal.fire({
             icon: 'error',
