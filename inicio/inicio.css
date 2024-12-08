@@ -215,13 +215,6 @@ td {
         padding: 10px; 
     }
 
-    .left {
-        /* background-color: #b3318e; */
-    }
-
-    .right {
-        /* background-color: #8b4444; */
-    }
 
     .saludo {
         font-size: 28px;
@@ -258,7 +251,7 @@ td {
     }
 
     .card {
-        width: 100%; 
+        width: 400px; 
         height: auto;
     }
 
@@ -270,4 +263,18 @@ td {
         font-size: 12px; 
         width: 100%; 
     }
+    .menu {
+        grid-area: header;
+        text-align: center;
+        padding: 10px;
+        font-size: 70%;
+        font-family: "Josefin Sans";
+        display: block; 
+        
+        
+    }
+   
+
+
+  
 }
