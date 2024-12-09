@@ -264,12 +264,10 @@ td {
         width: 100%; 
     }
     .menu {
-        grid-area: header;
-        text-align: center;
+      
         padding: 10px;
         font-size: 70%;
-        font-family: "Josefin Sans";
-        display: block; 
+        
         
         
     }

@@ -1,20 +1,32 @@
 body {
-    background-color: #00085A;
+    background-color: #ffffff;
     height: 100vh;
     margin: 0;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .conteiner {
-    width: 80%;
+    width: 75%;
     height: 100%;
     background-color: white;
     display: flex;
+    height: 100vh;
     flex-direction: column;
     position: relative;
-    box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.2);
+    
+}
+
+.img-pm {
+    width: 120px;
+    height: 100px;
+    /* margin-top: 0px; */
+    position: absolute; 
+    top: 4%; 
+    left: 2%;
+ 
+    
 }
 
 .signup {
@@ -96,7 +108,8 @@ body {
 
 @media (max-width: 768px) {
     .conteiner {
-        width: 90%;
+        width: 75%; /* Ajusta el ancho al 70% */
+        height: 100vh; /* Ocupa todo el alto de la pantalla */
     }
 
     .buttons {
@@ -111,8 +124,7 @@ body {
     .text {
         font-family: 'Inter', sans-serif;
         font-weight: bold;
-        /* font-size: 73px; */
-        font-size: 300%;
+        font-size: 200%;
         text-align: right;
         margin: 0;
     }
@@ -121,11 +133,20 @@ body {
         bottom: 60px;
         right: 20px;
     }
+    
+    .img-pm {
+        width: 80px;
+        height: 60px;
+        
+    
+    }
+
 }
+
 
 @media (max-width: 600px) {
     .text {
-        /* font-size: 42px;  */
+        /* font-size: 42px;  */ 
         font-size: 300%;
         line-height: 1.2; /
     }
@@ -133,7 +154,19 @@ body {
     .conteiner-text {
         right: 10px; 
         bottom: 40px;
+    .img-pm {
+        width: 80px;
+        height: 60px;
+        
+    
+    }
 
+    .img-pm {
+        width: 80px;
+        height: 60px;
+        
+    
+    }
       
     }
 }
